@@ -1,0 +1,33 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+              <app-register-form
+                (submit)="register($event)"
+              ></app-register-form>
+            </div>
+            <div class="card-footer p-4">
+              <div class="row">
+                <div class="col-6">
+                  <span>Already have an account?</span>
+                </div>
+                <div class="col-6">
+                  <button
+                    class="btn btn-block btn-facebook"
+                    type="button"
+                    (click)="login()"
+                  >
+                    <span style="color: blue">Login</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

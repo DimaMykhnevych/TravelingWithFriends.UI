@@ -1,0 +1,13 @@
+.app-body {
+  height: 120vh;
+  background-image: url("../../../../../assets/images/signUp.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  .main {
+    height: 120vh;
+    .card {
+      background-color: rgba(0, 0, 0, 0.349);
+      color: blanchedalmond;
+    }
+  }
+}

@@ -1,31 +1,47 @@
 <form [formGroup]="form" (submit)="onSubmit($event)">
   <h1>Login</h1>
   <p>Sign in to account</p>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="icon-user"></i></span>
+  <div class="input-group mb-3 d-flex flex-column">
+    <div class="d-flex">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="icon-user"></i></span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="username"
+        placeholder="username"
+        autocomplete="username"
+        required
+      />
     </div>
-    <input
-      type="text"
-      class="form-control"
-      formControlName="username"
-      placeholder="username"
-      autocomplete="username"
-      required
-    />
+    <div
+      class="alert alert-danger"
+      *ngIf="username?.touched && username?.invalid"
+    >
+      Username is required!
+    </div>
   </div>
-  <div class="input-group mb-4">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="icon-lock"></i></span>
+  <div class="input-group mb-4 d-flex flex-column">
+    <div class="d-flex">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="icon-lock"></i></span>
+      </div>
+      <input
+        type="password"
+        class="form-control"
+        formControlName="password"
+        placeholder="password"
+        autocomplete="current-password"
+        required
+      />
     </div>
-    <input
-      type="password"
-      class="form-control"
-      formControlName="password"
-      placeholder="password"
-      autocomplete="current-password"
-      required
-    />
+    <div
+      class="alert alert-danger"
+      *ngIf="password?.touched && password?.invalid"
+    >
+      Password is required!
+    </div>
   </div>
   <div class="row">
     <div class="col-6">

@@ -11,10 +11,15 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TokenService } from './token.service';
 import { UserResponseCode } from '../../http/request/response-codes.enum';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private _tokenService: TokenService, private _router: Router) {}
+  constructor(
+    private _tokenService: TokenService,
+    private _router: Router,
+    private _authService: AuthService
+  ) {}
 
   public intercept(
     req: HttpRequest<any>,
@@ -38,6 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private _handleError(err: HttpErrorResponse): void {
     if (err.status === UserResponseCode.Unauthorized) {
+      this._authService.unauthorize();
       this._router.navigate([`/login`]);
     } else {
       throw err;

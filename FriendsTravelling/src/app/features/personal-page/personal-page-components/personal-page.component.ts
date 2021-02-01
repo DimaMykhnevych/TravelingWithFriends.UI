@@ -21,5 +21,6 @@ export class PersonalPageComponent implements OnInit {
     this._userService
       .loadUserInfo()
       .subscribe((response) => (this.currentUserInfo = response));
+    // this.currentUserInfo = this._currentUserService.userInfo;
   }
 }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CurrentUserService } from '../../permission/services';
 import { AppSettings } from '../../settings';
-import { AuthForm, AuthResponse } from '../models';
+import { AuthForm, AuthResponse, IUserInfo } from '../models';
 import { TokenService } from './token.service';
 
 @Injectable()
@@ -37,6 +37,6 @@ export class AuthService {
 
   public unauthorize(): void {
     this._tokenService.clearToken();
-    this._currentUserService.userInfo = null as any;
+    this._currentUserService.userInfo = (null as unknown) as IUserInfo;
   }
 }

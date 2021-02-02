@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { IUserInfo, UserInfoService } from 'src/app/core/auth';
+import { AuthService, IUserInfo, UserInfoService } from 'src/app/core/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeProfileDialogComponent } from 'src/app/layout/change-profile-dialog/change-profile-dialog.component';
 import { IProfileUpdate } from 'src/app/layout/change-profile-dialog/models/profile-update.model';
-
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+import { UserProfileService } from '../services/user-profile.service';
+import { isNil } from 'lodash';
+import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-personal-page',
@@ -17,7 +16,13 @@ export interface DialogData {
 export class PersonalPageComponent implements OnInit {
   public currentUserInfo: IUserInfo;
 
-  constructor(private _userService: UserInfoService, public dialog: MatDialog) {
+  constructor(
+    private _userService: UserInfoService,
+    private _userProfileService: UserProfileService,
+    public dialog: MatDialog,
+    private _authService: AuthService,
+    private router: Router
+  ) {
     this.currentUserInfo = {};
   }
 
@@ -29,10 +34,41 @@ export class PersonalPageComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(ChangeProfileDialogComponent, {});
+    const dialogRef = this.dialog.open(ChangeProfileDialogComponent, {
+      data: {
+        userInfo: this.currentUserInfo,
+      },
+    });
 
     dialogRef.afterClosed().subscribe((result: IProfileUpdate) => {
-      console.log(result);
+      if (!isNil(result)) {
+        if (result.userName != this.currentUserInfo.username) {
+          this.logOut();
+        }
+        result.id = Number(this.currentUserInfo.userId);
+        this._userProfileService
+          .updateUserProfile(result)
+          .subscribe((response) => {
+            this.mapUserInfo(response);
+          });
+      }
     });
   }
+
+  private mapUserInfo(response: IProfileUpdate): void {
+    this.currentUserInfo.username = response.userName;
+    this.currentUserInfo.age = response.age;
+    this.currentUserInfo.city = response.city;
+    this.currentUserInfo.country = response.country;
+    this.currentUserInfo.email = response.email;
+  }
+
+  private logOut(): void {
+    this._authService.unauthorize();
+    this.router.navigate(['/login']);
+  }
+
+  // public onUploadImageClick(form: HTMLFormElement): void {
+  //   console.log(form);
+  // }
 }

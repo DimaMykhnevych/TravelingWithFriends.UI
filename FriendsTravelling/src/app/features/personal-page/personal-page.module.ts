@@ -6,6 +6,7 @@ import { NavbarModule } from 'src/app/layout/navbar';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/layout/material';
 import { ChangeProfileDialogModule } from 'src/app/layout/change-profile-dialog';
+import { UserProfileService } from './services/user-profile.service';
 
 @NgModule({
   declarations: [PersonalPageComponent],
@@ -17,5 +18,6 @@ import { ChangeProfileDialogModule } from 'src/app/layout/change-profile-dialog'
     MaterialModule,
     ChangeProfileDialogModule,
   ],
+  providers: [UserProfileService],
 })
 export class PersonalPageModule {}

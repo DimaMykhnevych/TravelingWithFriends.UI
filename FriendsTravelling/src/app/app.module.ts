@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { MaterialModule } from './layout/material/material.module';
-import { NgModule } from '@angular/core';
+import { MaterialModule } from './layout/material';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
@@ -11,7 +11,8 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './features/home/home.module';
 import { LoginModule } from './features/login';
 import { PersonalPageModule } from './features/personal-page/personal-page.module';
-import { NavbarModule } from './layout/navbar';
+import { UserInfoService } from './core/auth';
+import { loadUserInfo } from './core/app-initializers/load-user-info.initializer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,10 +26,16 @@ import { NavbarModule } from './layout/navbar';
     HttpClientModule,
     PersonalPageModule,
     ToastrModule.forRoot(),
-    NavbarModule,
   ],
-  exports: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (userInfoService: UserInfoService) =>
+        loadUserInfo(userInfoService),
+      deps: [UserInfoService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

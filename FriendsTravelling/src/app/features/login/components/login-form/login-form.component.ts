@@ -26,11 +26,14 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  public ngOnInit(): void {
-    // this.form = this._builder.group({
-    //   username: new FormControl('', [Validators.required]),
-    //   password: new FormControl('', [Validators.required]),
-    // });
+  public ngOnInit(): void {}
+
+  get username() {
+    return this.form.get('username');
+  }
+
+  get password() {
+    return this.form.get('password');
   }
 
   public onSubmit(e: Event): void {

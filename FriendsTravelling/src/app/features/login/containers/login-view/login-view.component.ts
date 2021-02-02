@@ -8,6 +8,7 @@ import { AuthForm, AuthService } from '../../../../core/auth';
   styleUrls: ['./login-view.component.scss'],
 })
 export class LoginViewComponent implements OnInit {
+  public isLoginSucessfull: boolean = true;
   constructor(private _auth: AuthService, private _router: Router) {}
 
   public ngOnInit(): void {
@@ -21,7 +22,7 @@ export class LoginViewComponent implements OnInit {
       if (isAuthorized) {
         this._router.navigate(['/myPage']);
       } else {
-        // TODO handle error;
+        this.isLoginSucessfull = false;
       }
     });
   }

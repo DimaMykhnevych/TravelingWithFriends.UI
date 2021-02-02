@@ -5,4 +5,5 @@ export interface IUserInfo {
   city?: string;
   country?: string;
   age?: number;
+  email?: string;
 }

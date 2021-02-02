@@ -1,0 +1,18 @@
+.user-info {
+  padding: 15px;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../../../assets/images/profile-background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  color: whitesmoke;
+  //   height: 300px;
+  .profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+  }
+  .change-profile-btn:hover {
+    background-color: grey;
+  }
+}

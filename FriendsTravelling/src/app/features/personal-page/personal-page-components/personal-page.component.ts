@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { IUserInfo, UserInfoService } from 'src/app/core/auth';
-import { CurrentUserService } from 'src/app/core/permission/services';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangeProfileDialogComponent } from 'src/app/layout/change-profile-dialog/change-profile-dialog.component';
+import { IProfileUpdate } from 'src/app/layout/change-profile-dialog/models/profile-update.model';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-personal-page',
@@ -10,10 +17,7 @@ import { CurrentUserService } from 'src/app/core/permission/services';
 export class PersonalPageComponent implements OnInit {
   public currentUserInfo: IUserInfo;
 
-  constructor(
-    private _currentUserService: CurrentUserService,
-    private _userService: UserInfoService
-  ) {
+  constructor(private _userService: UserInfoService, public dialog: MatDialog) {
     this.currentUserInfo = {};
   }
 
@@ -21,5 +25,13 @@ export class PersonalPageComponent implements OnInit {
     this._userService
       .loadUserInfo()
       .subscribe((response) => (this.currentUserInfo = response));
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ChangeProfileDialogComponent, {});
+
+    dialogRef.afterClosed().subscribe((result: IProfileUpdate) => {
+      console.log(result);
+    });
   }
 }

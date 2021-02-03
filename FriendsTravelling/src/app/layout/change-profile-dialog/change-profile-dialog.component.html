@@ -67,24 +67,41 @@
       </div>
     </div>
   </form>
-  <form
-    [formGroup]="imageUploadForm"
-    enctype="multipart/form-data"
-    (submit)="onImageUpload($event)"
-  >
-    <div class="form-group">
+  <form [formGroup]="imageUploadForm" enctype="multipart/form-data">
+    <div class="form-group m-0">
       <label for="file1">Profile Image</label>
       <input
+        #file
         class="form-control-file"
         formControlName="profileImage"
         type="file"
         id="file1"
         name="file1"
+        (change)="uploadFile(file)"
+        style="display: none"
       />
     </div>
-    <button mat-raised-button color="primary" type="submit">
-      Upload Image
-    </button>
+    <div class="row">
+      <div class="col-lg-2 col-md-3 col-sm-3 col-3">
+        <button
+          mat-raised-button
+          (click)="file.click()"
+          color="primary"
+          type="button"
+          class="mb-2 mb-md-0"
+        >
+          Upload Image
+        </button>
+      </div>
+      <div
+        class="col-lg-8 col-md-7 col-sm-12 col-12 d-flex justify-content-start align-items-center"
+      >
+        <span class="upload" *ngIf="progress > 0"> {{ progress }}% </span>
+        <span class="upload message" *ngIf="message">
+          {{ message }}
+        </span>
+      </div>
+    </div>
   </form>
 </div>
 <div mat-dialog-actions>

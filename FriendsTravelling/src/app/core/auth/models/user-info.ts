@@ -6,4 +6,5 @@ export interface IUserInfo {
   country?: string;
   age?: number;
   email?: string;
+  profileImagePath?: string;
 }

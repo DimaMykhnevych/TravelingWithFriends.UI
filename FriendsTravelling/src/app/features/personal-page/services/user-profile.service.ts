@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IUserInfo } from 'src/app/core/auth';
 import { Observable } from 'rxjs';
 import { IProfileUpdate } from 'src/app/layout/change-profile-dialog/models/profile-update.model';
 import { AppSettings } from '../../../core/settings';

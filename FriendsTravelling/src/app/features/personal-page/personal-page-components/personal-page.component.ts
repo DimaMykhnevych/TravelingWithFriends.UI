@@ -6,7 +6,8 @@ import { IProfileUpdate } from 'src/app/layout/change-profile-dialog/models/prof
 import { UserProfileService } from '../services/user-profile.service';
 import { isNil } from 'lodash';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { IDialogResult } from 'src/app/layout/change-profile-dialog/models/dialog-result.model';
+import { AppSettings } from 'src/app/core/settings';
 
 @Component({
   selector: 'app-personal-page',
@@ -27,10 +28,12 @@ export class PersonalPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._userService
-      .loadUserInfo()
-      .subscribe((response) => (this.currentUserInfo = response));
-    // this.currentUserInfo = this._currentUserService.userInfo;
+    this._userService.loadUserInfo().subscribe((response) => {
+      this.currentUserInfo = response;
+      // if(this.currentUserInfo.profileImagePath == ""){
+      //   this
+      // }
+    });
   }
 
   openDialog(): void {
@@ -40,19 +43,36 @@ export class PersonalPageComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result: IProfileUpdate) => {
-      if (!isNil(result)) {
-        if (result.userName != this.currentUserInfo.username) {
-          this.logOut();
-        }
-        result.id = Number(this.currentUserInfo.userId);
-        this._userProfileService
-          .updateUserProfile(result)
-          .subscribe((response) => {
-            this.mapUserInfo(response);
-          });
-      }
+    dialogRef.afterClosed().subscribe((result: IDialogResult) => {
+      this.afterDialogClosed(result);
     });
+  }
+
+  public createImgPath(): string {
+    if (
+      !isNil(this.currentUserInfo.profileImagePath) &&
+      this.currentUserInfo.profileImagePath != ''
+    ) {
+      return `${AppSettings.hubHost}/${this.currentUserInfo.profileImagePath}`;
+    }
+    return '../../../../assets/images/avatar-default.png';
+  }
+
+  private afterDialogClosed(result: IDialogResult): void {
+    if (!isNil(result)) {
+      if (result.mainForm.userName != this.currentUserInfo.username) {
+        this.logOut();
+      }
+      if (!isNil(result.imageResponse)) {
+        this.currentUserInfo.profileImagePath = result.imageResponse.imagePath;
+      }
+      result.mainForm.id = Number(this.currentUserInfo.userId);
+      this._userProfileService
+        .updateUserProfile(result.mainForm)
+        .subscribe((response) => {
+          this.mapUserInfo(response);
+        });
+    }
   }
 
   private mapUserInfo(response: IProfileUpdate): void {
@@ -67,8 +87,4 @@ export class PersonalPageComponent implements OnInit {
     this._authService.unauthorize();
     this.router.navigate(['/login']);
   }
-
-  // public onUploadImageClick(form: HTMLFormElement): void {
-  //   console.log(form);
-  // }
 }

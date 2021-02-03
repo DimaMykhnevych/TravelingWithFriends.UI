@@ -7,6 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { IUserInfo } from 'src/app/core/auth';
+import { ProfileImageService } from './services/profile-image.service';
+import { HttpEventType } from '@angular/common/http';
+import { IImage } from './models/image.model';
+import { IDialogResult } from './models/dialog-result.model';
 
 @Component({
   selector: 'app-change-profile-dialog',
@@ -16,11 +20,17 @@ import { IUserInfo } from 'src/app/core/auth';
 export class ChangeProfileDialogComponent implements OnInit {
   public form: FormGroup = this._builder.group({});
   public imageUploadForm: FormGroup = this._builder.group({});
+  public progress: number = 0;
+  public message: string = null as any;
+
+  private imageResponse: IImage = null as any;
+  private dialogResult: IDialogResult = null as any;
 
   constructor(
     public dialogRef: MatDialogRef<ChangeProfileDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { userInfo: IUserInfo },
-    private _builder: FormBuilder
+    private _builder: FormBuilder,
+    private _imageService: ProfileImageService
   ) {}
 
   ngOnInit(): void {
@@ -55,12 +65,50 @@ export class ChangeProfileDialogComponent implements OnInit {
   }
 
   public onSaveButtonClick(): void {
-    this.dialogRef.close(this.form.value);
+    this.dialogResult = {
+      mainForm: this.form.value,
+      imageResponse: this.imageResponse,
+    };
+    this.dialogRef.close(this.dialogResult);
   }
 
-  public onImageUpload(event: Event): void {}
+  public uploadFile(file: HTMLInputElement) {
+    let files = file.files || new FileList();
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+
+    formData.append('file', fileToUpload, this.getUniqueFileName(fileToUpload));
+    this._imageService.uploadProfileImage(formData).subscribe((event) => {
+      if (event.type === HttpEventType.UploadProgress) {
+        let total = event.total == undefined ? 100 : event.total;
+        this.progress = Math.round((100 * event.loaded) / total);
+      } else if (event.type === HttpEventType.Response) {
+        this.message = 'Upload success.';
+        this.imageResponse = event.body == null ? (null as any) : event.body;
+      }
+    });
+  }
 
   public onCloseButtonClick(): void {
     this.dialogRef.close();
+  }
+
+  private getUniqueFileName(fileToUpload: File): string {
+    let splitedFileNameWithFileFormat = fileToUpload.name
+      .split('.')
+      .filter((s) => s != '');
+    let fileFormat =
+      splitedFileNameWithFileFormat[splitedFileNameWithFileFormat.length - 1];
+    splitedFileNameWithFileFormat.splice(-1, 1);
+
+    let uniqueFileName =
+      splitedFileNameWithFileFormat.join('.') +
+      this.data.userInfo.userId +
+      '.' +
+      fileFormat;
+    return uniqueFileName;
   }
 }

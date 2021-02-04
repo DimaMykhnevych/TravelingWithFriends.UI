@@ -1,5 +1,13 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Awesome Travel</a>
+<nav class="navbar fixed-top navbar-expand-md navbar-dark">
+  <a class="navbar-brand" href="#">
+    <img
+      src="../../../assets/images/logo.png"
+      width="30"
+      height="30"
+      class="d-inline-block align-top"
+      alt=""
+    />Awesome Travel</a
+  >
   <button
     class="navbar-toggler d-lg-none"
     type="button"
@@ -64,7 +72,7 @@
           class="dropdown-menu dropdown-menu-right"
           aria-labelledby="navbarDropdownMenuLink"
         >
-          <a class="dropdown-item" routerLink="/myPage">My profile</a>
+          <button class="dropdown-item" routerLink="/myPage">My profile</button>
           <button class="dropdown-item" (click)="OnLogOutButtonCLick()">
             Log Out
           </button>

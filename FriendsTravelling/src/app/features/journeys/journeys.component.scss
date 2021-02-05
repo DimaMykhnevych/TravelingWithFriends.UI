@@ -1,0 +1,25 @@
+.main {
+  padding-top: 100px;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../../assets/images/journey-main-photo.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  color: aliceblue;
+  .form-wrapper {
+    // background-color: rgba(255, 228, 196, 0.301);
+    background-color: rgba(85, 80, 74, 0.301);
+    border: 2px solid rgba(0, 0, 139, 0.219);
+    // height: 250px;
+    border-radius: 10px;
+  }
+}
+
+ng-scrollbar {
+  --scrollbar-size: 8px;
+  --scrollbar-thumb-color: rgba(183, 205, 228, 0.5);
+  --scrollbar-thumb-hover-color: rgba(126, 171, 219, 0.5);
+  --scrollbar-border-radius: 4px;
+  --scrollbar-track-color: rgba(0, 0, 0, 0.123);
+}

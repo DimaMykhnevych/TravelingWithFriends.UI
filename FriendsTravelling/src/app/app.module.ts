@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './features/home/home.module';
 import { LoginModule } from './features/login';
 import { PersonalPageModule } from './features/personal-page/personal-page.module';
+import { JourneysModule } from './features/journeys';
+
 import { UserInfoService } from './core/auth';
 import { loadUserInfo } from './core/app-initializers/load-user-info.initializer';
 
@@ -26,6 +28,7 @@ import { loadUserInfo } from './core/app-initializers/load-user-info.initializer
     HttpClientModule,
     PersonalPageModule,
     ToastrModule.forRoot(),
+    JourneysModule,
   ],
   providers: [
     {

@@ -1,0 +1,23 @@
+<div class="container">
+  <app-create-journey-form #journeyForm></app-create-journey-form>
+  <div class="line"></div>
+  <app-create-route-form #routeForm></app-create-route-form>
+  <div class="line"></div>
+  <app-transport-form #transportForm></app-transport-form>
+  <div class="d-flex justify-content-center m-3">
+    <button
+      type="submit"
+      (click)="onSubmitClick()"
+      mat-raised-button
+      [disabled]="
+        routeForm.form.invalid ||
+        journeyForm.form.invalid ||
+        transportForm.form.invalid
+      "
+      color="primary"
+      class="d-flex justify-content-center submit-btn"
+    >
+      Submit
+    </button>
+  </div>
+</div>

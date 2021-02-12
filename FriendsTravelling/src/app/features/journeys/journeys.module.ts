@@ -9,16 +9,34 @@ import { LocationService } from './services/location.service';
 import { CreateRouteFormComponent } from './components/create-route-form/create-route-form.component';
 import { CreateJourneyComponent } from './components/create-journey/create-journey.component';
 import { TransportFormComponent } from './components/transport-form/transport-form.component';
+import { MyJourneysComponent } from './components/my-journeys/my-journeys.component';
+import { MyJourneysService } from './services/my-journeys.service';
+import { AddJourneyService } from './services/add-journey.service';
+import { JourneysListComponent } from './components/journeys-list/journeys-list.component';
+import { JourneyListItemComponent } from './components/journey-list-item/journey-list-item.component';
+import { SpinnerModule } from 'src/app/layout/spinner/spinner.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [JourneysComponent, CreateJourneyFormComponent, CreateRouteFormComponent, CreateJourneyComponent, TransportFormComponent],
+  declarations: [
+    JourneysComponent,
+    CreateJourneyFormComponent,
+    CreateRouteFormComponent,
+    CreateJourneyComponent,
+    TransportFormComponent,
+    MyJourneysComponent,
+    JourneysListComponent,
+    JourneyListItemComponent,
+  ],
   imports: [
     CommonModule,
     MaterialModule,
     NgScrollbarModule,
     FormsModule,
     ReactiveFormsModule,
+    SpinnerModule,
+    RouterModule,
   ],
-  providers: [LocationService],
+  providers: [LocationService, MyJourneysService, AddJourneyService],
 })
 export class JourneysModule {}

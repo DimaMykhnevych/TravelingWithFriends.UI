@@ -1,0 +1,69 @@
+<div class="main">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title
+        >{{ journey.route.routeLocations[0].location.name }} Joruney ({{
+          journey.startDate | date
+        }})</mat-card-title
+      >
+      <mat-card-subtitle>{{ getFullRouteString() }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ journey.description }}.</p>
+      <div class="row d-flex justify-content-around">
+        <div class="col-lg-3 col-md-3">
+          <p>
+            <i class="fas fa-calendar"></i> Start date:
+            {{ journey.startDate | date }}
+          </p>
+          <p>
+            <i class="fas fa-calendar"></i> End date:
+            {{ journey.endDate | date }}
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <p>
+            <i class="fas fa-birthday-cake"></i> Minimum age:
+            {{ journey.minimumRequiredAge }} years old
+          </p>
+          <p>
+            <i class="fas fa-birthday-cake"></i> Maximum age:
+            {{ journey.maximumRequiredAge }} years old
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <p>
+            <i class="fas fa-chair"></i> Available places:
+            {{ journey.availablePlaces }}
+          </p>
+          <p>
+            <i class="fas fa-money-bill-wave"></i> Price per ticket:
+            {{ journey.price }}
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <p>
+            <i class="fas fa-plane"></i> Transport:
+            {{ journey.route.transport.name }}
+          </p>
+          <p>
+            <i class="fas fa-info"></i> Description:
+            {{ journey.route.transport.description }}
+          </p>
+        </div>
+      </div>
+      <p>Route</p>
+      <span *ngFor="let routeLocation of journey.route.routeLocations">
+        {{ routeLocation.location.name }}({{ routeLocation.location.country }})
+        <i class="fas fa-arrow-right"></i>
+      </span>
+      <i class="fas fa-home ml-1"></i>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Edit</button>
+      <button mat-raised-button color="warn" (click)="onDeleteJourneyClick()">
+        Delete
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

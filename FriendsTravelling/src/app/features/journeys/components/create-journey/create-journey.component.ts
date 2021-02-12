@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { IJourneyModel } from 'src/app/core/models/journey';
 import { IAddJourney } from '../../models/add-journey';
 import { IJourney } from '../../models/journey';
@@ -29,7 +31,11 @@ export class CreateJourneyComponent implements OnInit {
   private addJourneyModel: IAddJourney = null as any;
   private addedJourney: IJourneyModel = null as any;
 
-  constructor(private _addJourneyService: AddJourneyService) {}
+  constructor(
+    private _addJourneyService: AddJourneyService,
+    private _toastr: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -50,8 +56,11 @@ export class CreateJourneyComponent implements OnInit {
     this._addJourneyService
       .addJourney(this.addJourneyModel)
       .subscribe((response) => {
-        this.addedJourney = response;
-        console.log(this.addedJourney);
+        if (response) {
+          this.addedJourney = response;
+          this._toastr.success('Your journey was added successfully');
+          this.router.navigate(['/profile/myJourneys']);
+        }
       });
   }
 

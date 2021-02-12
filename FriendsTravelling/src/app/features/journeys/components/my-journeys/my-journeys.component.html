@@ -1,0 +1,29 @@
+<ng-scrollbar track="all" pointerEventsMethod="scrollbar">
+  <div class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="header text-center">My Journeys</h2>
+          <div
+            class="emptyJourneys text-center"
+            *ngIf="currentUserJourneys.length == 0 && !isLoading"
+          >
+            <h3 class="text-center">
+              You haven't created any journey yet<i class="fas fa-smile"></i>
+            </h3>
+            <a class="create-link" routerLink="/profile/journeys">
+              Create Journey Right Now!</a
+            >
+          </div>
+          <div class="spinner" *ngIf="isLoading">
+            <app-spinner></app-spinner>
+          </div>
+          <app-journeys-list
+            [journeys]="currentUserJourneys"
+            (delete)="onJourneyDelete($event)"
+          ></app-journeys-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-scrollbar>

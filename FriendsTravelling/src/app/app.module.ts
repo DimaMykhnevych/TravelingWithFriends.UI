@@ -4,6 +4,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { loadUserInfo } from './core/app-initializers/load-user-info.initializer
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
+    CommonModule,
     BrowserAnimationsModule,
     HomeModule,
     LoginModule,

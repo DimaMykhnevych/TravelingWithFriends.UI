@@ -11,7 +11,6 @@ import { CreateJourneyComponent } from './components/create-journey/create-journ
 import { TransportFormComponent } from './components/transport-form/transport-form.component';
 import { MyJourneysComponent } from './components/my-journeys/my-journeys.component';
 import { MyJourneysService } from './services/my-journeys.service';
-import { AddJourneyService } from './services/add-journey.service';
 import { JourneysListComponent } from './components/journeys-list/journeys-list.component';
 import { JourneyListItemComponent } from './components/journey-list-item/journey-list-item.component';
 import { SpinnerModule } from 'src/app/layout/spinner/spinner.module';
@@ -37,6 +36,6 @@ import { RouterModule } from '@angular/router';
     SpinnerModule,
     RouterModule,
   ],
-  providers: [LocationService, MyJourneysService, AddJourneyService],
+  providers: [LocationService, MyJourneysService],
 })
 export class JourneysModule {}

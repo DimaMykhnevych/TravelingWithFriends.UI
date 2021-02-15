@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { IJourneyModel } from 'src/app/core/models/journey';
 import { StartDateValidator } from '../../validators/start-date.validator';
 
 @Component({
@@ -12,53 +15,33 @@ import { StartDateValidator } from '../../validators/start-date.validator';
   templateUrl: './create-journey-form.component.html',
   styleUrls: ['./create-journey-form.component.scss'],
 })
-export class CreateJourneyFormComponent implements OnInit {
+export class CreateJourneyFormComponent implements OnInit, OnDestroy {
+  @Input() public set journey(j: IJourneyModel) {
+    this._journey = j;
+    this.initializeForm(j);
+  }
+  public get journey(): IJourneyModel {
+    return this._journey;
+  }
   public form: FormGroup;
   public submitted: boolean = false;
+
+  private _journey: IJourneyModel;
+  private _destroy$: Subject<void> = new Subject<void>();
 
   constructor(private _builder: FormBuilder) {
     this.form = this._builder.group({});
   }
 
-  ngOnInit(): void {
-    this.form = this._builder.group({
-      startDate: new FormControl('', [Validators.required, StartDateValidator]),
-      endDate: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required, Validators.min(3)]),
-      availablePlaces: new FormControl('', [
-        Validators.required,
-        Validators.min(1),
-      ]),
-      minimumRequiredAge: new FormControl('', [
-        Validators.required,
-        Validators.min(18),
-      ]),
-      maximumRequiredAge: new FormControl('', [
-        Validators.required,
-        Validators.min(18),
-      ]),
-      description: new FormControl('', [Validators.required]),
-    });
-
-    this.form.valueChanges.subscribe((value) => {
-      let startDate = this.form.controls.startDate.value;
-      let endDate = this.form.controls.endDate.value;
-      let minAge = this.form.controls.minimumRequiredAge.value;
-      let maxAge = this.form.controls.maximumRequiredAge.value;
-      if (endDate < startDate) {
-        this.form.controls.endDate.setErrors({ wrongEndDate: true });
-      } else {
-        this.form.controls.endDate.setErrors(null);
-      }
-      if (minAge > maxAge) {
-        this.form.controls.maximumRequiredAge.setErrors({ wrongMaxAge: true });
-      } else {
-        this.form.controls.maximumRequiredAge.setErrors(null);
-      }
-    });
+  public ngOnInit(): void {
+    this.initializeForm(null as any);
+    this.subscribeOnFormValueChanges();
   }
 
-  public onSubmit(e: Event) {}
+  public ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
 
   get startDate() {
     return this.form.get('startDate');
@@ -80,5 +63,55 @@ export class CreateJourneyFormComponent implements OnInit {
   }
   get description() {
     return this.form.get('description');
+  }
+
+  private initializeForm(journey: IJourneyModel) {
+    this.form = this._builder.group({
+      startDate: new FormControl(journey?.startDate, [
+        Validators.required,
+        StartDateValidator(this.journey),
+      ]),
+      endDate: new FormControl(journey?.endDate, [Validators.required]),
+      price: new FormControl(journey?.price, [
+        Validators.required,
+        Validators.min(3),
+      ]),
+      availablePlaces: new FormControl(journey?.availablePlaces, [
+        Validators.required,
+        Validators.min(1),
+      ]),
+      minimumRequiredAge: new FormControl(journey?.minimumRequiredAge, [
+        Validators.required,
+        Validators.min(18),
+      ]),
+      maximumRequiredAge: new FormControl(journey?.maximumRequiredAge, [
+        Validators.required,
+        Validators.min(18),
+      ]),
+      description: new FormControl(journey?.description, [Validators.required]),
+    });
+  }
+
+  private subscribeOnFormValueChanges() {
+    this.form.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((value) => {
+        let startDate = this.form.controls.startDate.value;
+        let endDate = this.form.controls.endDate.value;
+        let minAge = this.form.controls.minimumRequiredAge.value;
+        let maxAge = this.form.controls.maximumRequiredAge.value;
+        if (endDate < startDate) {
+          this.form.controls.endDate.setErrors({ wrongEndDate: true });
+        } else {
+          this.form.controls.endDate.setErrors(null);
+        }
+        if (minAge > maxAge) {
+          this.form.controls.maximumRequiredAge.setErrors({
+            wrongMaxAge: true,
+          });
+        } else {
+          this.form.controls.maximumRequiredAge.setErrors(null);
+        }
+      });
   }
 }

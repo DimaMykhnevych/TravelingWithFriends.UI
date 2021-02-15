@@ -60,7 +60,9 @@
       <i class="fas fa-home ml-1"></i>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary">Edit</button>
+      <button mat-raised-button color="primary" (click)="onEditJourneyClick()">
+        Edit
+      </button>
       <button mat-raised-button color="warn" (click)="onDeleteJourneyClick()">
         Delete
       </button>

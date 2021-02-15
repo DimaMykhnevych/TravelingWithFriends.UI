@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs/operators';
 import { IJourneyModel } from 'src/app/core/models/journey';
@@ -14,11 +15,20 @@ export class MyJourneysComponent implements OnInit {
   public isLoading: boolean = true;
   constructor(
     private _myJourneysService: MyJourneysService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getUserJourneys();
+  }
+
+  public onJourneyEdit(journeyId: number) {
+    this.router.navigate(['/profile/journeys'], {
+      queryParams: {
+        journeyId: journeyId,
+      },
+    });
   }
 
   public onJourneyDelete(journeyId: number) {

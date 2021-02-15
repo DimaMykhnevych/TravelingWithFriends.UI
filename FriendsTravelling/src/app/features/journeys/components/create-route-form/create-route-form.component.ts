@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -6,6 +6,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { IRouteModel } from 'src/app/core/models/route';
+import { IRouteLocationModel } from 'src/app/core/models/route-location';
 
 @Component({
   selector: 'app-create-route-form',
@@ -13,30 +15,27 @@ import {
   styleUrls: ['./create-route-form.component.scss'],
 })
 export class CreateRouteFormComponent implements OnInit {
+  @Input() public set route(r: IRouteModel) {
+    this._route = r;
+    this.initializeForm(r);
+  }
+  public get route(): IRouteModel {
+    return this._route;
+  }
   public form: FormGroup;
+  private _route: IRouteModel;
+  private _formArray = [this.getFormArrayElement(null)];
 
   constructor(private _builder: FormBuilder) {
     this.form = this._builder.group({});
   }
 
   ngOnInit(): void {
-    this.form = this._builder.group({
-      locations: this._builder.array([
-        this._builder.group({
-          name: new FormControl('', [Validators.required]),
-          country: new FormControl('', [Validators.required]),
-        }),
-      ]),
-    });
+    this.initializeForm(null);
   }
 
   public onAddRouteClick(): void {
-    this.locations.push(
-      this._builder.group({
-        name: new FormControl('', [Validators.required]),
-        country: new FormControl('', [Validators.required]),
-      })
-    );
+    this.locations.push(this.getFormArrayElement(null));
   }
 
   public onDeleteRouteClick(index: number): void {
@@ -59,5 +58,24 @@ export class CreateRouteFormComponent implements OnInit {
       return 'You must enter a value';
     }
     return '';
+  }
+
+  private initializeForm(r: IRouteModel): void {
+    if (r !== null) {
+      this._formArray = [];
+      r?.routeLocations?.forEach((r) => {
+        this._formArray.push(this.getFormArrayElement(r));
+      });
+    }
+    this.form = this._builder.group({
+      locations: this._builder.array(this._formArray),
+    });
+  }
+
+  private getFormArrayElement(data: IRouteLocationModel): FormGroup {
+    return this._builder.group({
+      name: new FormControl(data?.location?.name, [Validators.required]),
+      country: new FormControl(data?.location?.country, [Validators.required]),
+    });
   }
 }

@@ -1,9 +1,18 @@
 <div class="container">
-  <app-create-journey-form #journeyForm></app-create-journey-form>
+  <app-create-journey-form
+    #journeyForm
+    [journey]="journeyToEdit"
+  ></app-create-journey-form>
   <div class="line"></div>
-  <app-create-route-form #routeForm></app-create-route-form>
+  <app-create-route-form
+    #routeForm
+    [route]="journeyToEdit?.route"
+  ></app-create-route-form>
   <div class="line"></div>
-  <app-transport-form #transportForm></app-transport-form>
+  <app-transport-form
+    #transportForm
+    [transport]="journeyToEdit?.route?.transport"
+  ></app-transport-form>
   <div class="d-flex justify-content-center m-3">
     <button
       type="submit"

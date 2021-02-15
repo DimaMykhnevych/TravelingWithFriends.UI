@@ -10,6 +10,8 @@ export class JourneyListItemComponent implements OnInit {
   @Input() public journey: IJourneyModel = null as any;
   @Output()
   public delete: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  public edit: EventEmitter<number> = new EventEmitter<number>();
   constructor() {}
 
   ngOnInit(): void {}
@@ -21,6 +23,10 @@ export class JourneyListItemComponent implements OnInit {
       routeString += `${routeLocations[i].location.name} => `;
     }
     return routeString.slice(0, -4);
+  }
+
+  public onEditJourneyClick() {
+    this.edit.emit(this.journey.id);
   }
 
   public onDeleteJourneyClick() {

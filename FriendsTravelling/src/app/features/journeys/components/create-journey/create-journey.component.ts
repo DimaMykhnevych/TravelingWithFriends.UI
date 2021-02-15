@@ -1,12 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { isNil } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { IJourneyModel } from 'src/app/core/models/journey';
-import { IAddJourney } from '../../models/add-journey';
-import { IJourney } from '../../models/journey';
-import { ILocation } from '../../models/location';
-import { ITransport } from '../../models/transport';
-import { AddJourneyService } from '../../services/add-journey.service';
+import { ILocationModel } from 'src/app/core/models/location';
+import { JourneyService } from '../../services/journey.service';
 import { CreateJourneyFormComponent } from '../create-journey-form/create-journey-form.component';
 import { CreateRouteFormComponent } from '../create-route-form/create-route-form.component';
 import { TransportFormComponent } from '../transport-form/transport-form.component';
@@ -18,57 +16,165 @@ import { TransportFormComponent } from '../transport-form/transport-form.compone
 })
 export class CreateJourneyComponent implements OnInit {
   @ViewChild('journeyForm')
-  journeyForm: CreateJourneyFormComponent = null as any;
+  journeyForm: CreateJourneyFormComponent;
   @ViewChild('routeForm')
-  routeForm: CreateRouteFormComponent = null as any;
+  routeForm: CreateRouteFormComponent;
   @ViewChild('transportForm')
-  transportForm: TransportFormComponent = null as any;
+  transportForm: TransportFormComponent;
+  @Input() public journeyId: number = 0;
 
-  private transport: ITransport = null as any;
-  private locationFormValue: { locations: ILocation[] } = { locations: [] };
-  private locations: ILocation[] = [];
-  private journey: IJourney = null as any;
-  private addJourneyModel: IAddJourney = null as any;
-  private addedJourney: IJourneyModel = null as any;
+  private locationFormValue: { locations: ILocationModel[] } = {
+    locations: [],
+  };
+  private journeyModel: IJourneyModel;
+  public journeyToEdit: IJourneyModel;
 
   constructor(
-    private _addJourneyService: AddJourneyService,
     private _toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private _journeyService: JourneyService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.journeyId !== 0 && !isNaN(this.journeyId)) {
+      this._journeyService
+        .getJourneyById(this.journeyId)
+        .subscribe((response) => {
+          if (response) {
+            this.journeyToEdit = response;
+          }
+        });
+    }
+  }
 
   public onSubmitClick() {
-    this.transport = this.transportForm.form.value;
-    this.locationFormValue = this.routeForm.form.value;
-    this.locations = this.locationFormValue.locations;
-    this.journey = this.journeyForm.form.value;
-
+    console.log(this.routeForm.form.value);
+    this.bindFormValues();
     this.addCoordinates();
+    if (this.journeyId !== 0 && !isNaN(this.journeyId)) {
+      this.updateJourney();
+    } else {
+      this.addJourney();
+    }
+  }
 
-    this.addJourneyModel = {
-      journey: this.journey,
-      locations: this.locations,
-      transport: this.transport,
-    };
+  private addCoordinates() {
+    this.journeyModel.route.routeLocations.forEach((el) => {
+      if (el.location.latitude === undefined) {
+        el.location.latitude = this.getRandomIntInclusive(-90, 90).toString();
+        el.location.longtitude = this.getRandomIntInclusive(
+          -180,
+          180
+        ).toString();
+      }
+    });
+  }
 
-    this._addJourneyService
-      .addJourney(this.addJourneyModel)
+  private addJourney(): void {
+    this._journeyService.addJourney(this.journeyModel).subscribe((response) => {
+      if (response) {
+        this._toastr.success('Your journey was added successfully');
+        this.router.navigate(['/profile/myJourneys']);
+      }
+    });
+  }
+
+  private updateJourney(): void {
+    this._journeyService
+      .updateJourney(this.journeyId, this.journeyModel)
       .subscribe((response) => {
         if (response) {
-          this.addedJourney = response;
-          this._toastr.success('Your journey was added successfully');
+          this._toastr.success('Your journey was updated successfully');
           this.router.navigate(['/profile/myJourneys']);
         }
       });
   }
 
-  private addCoordinates() {
-    this.locations.forEach((el) => {
-      el.latitude = this.getRandomIntInclusive(-90, 90).toString();
-      el.longtitude = this.getRandomIntInclusive(-180, 180).toString();
-    });
+  private bindFormValues(): void {
+    if (this.journeyId !== 0 && !isNaN(this.journeyId)) {
+      this.bindUpdateFormValues();
+    } else {
+      this.bindAddFormValues();
+    }
+  }
+
+  private bindAddFormValues(): void {
+    this.locationFormValue = this.routeForm.form.value;
+    this.journeyModel = this.journeyForm.form.value;
+    this.journeyModel.route = {
+      id: 0,
+      transportId: 0,
+      transport: this.transportForm.form.value,
+      journeys: [],
+      routeLocations: [],
+    };
+    this.journeyModel.route.transport.routes = [];
+    for (let i = 0; i < this.locationFormValue.locations.length; i++) {
+      this.journeyModel.route.routeLocations[i] = {
+        route: null,
+        id: 0,
+        routeId: 0,
+        locationId: 0,
+        locationOrder: 0,
+        location: this.locationFormValue.locations[i],
+      };
+    }
+  }
+
+  private bindJourneyModelToJourneyToEdit() {
+    let journeyForm = this.journeyForm.form.value;
+    let transportForm = this.transportForm.form.value;
+    this.journeyModel = this.journeyToEdit;
+    this.journeyModel.startDate = journeyForm.startDate;
+    this.journeyModel.endDate = journeyForm.endDate;
+    this.journeyModel.price = journeyForm.price;
+    this.journeyModel.minimumRequiredAge = journeyForm.minimumRequiredAge;
+    this.journeyModel.maximumRequiredAge = journeyForm.maximumRequiredAge;
+    this.journeyModel.description = journeyForm.description;
+    this.journeyModel.route.transport.name = transportForm.name;
+    this.journeyModel.route.transport.description = transportForm.description;
+  }
+
+  private addNewLocations(): void {
+    for (let i = 0; i < this.locationFormValue.locations.length; i++) {
+      let currentLocation = this.journeyModel.route.routeLocations[i];
+      if (!isNil(currentLocation)) {
+        currentLocation.location.name = this.locationFormValue.locations[
+          i
+        ].name;
+        currentLocation.location.country = this.locationFormValue.locations[
+          i
+        ].country;
+      } else {
+        this.journeyModel.route.routeLocations[i] = {
+          route: null,
+          id: 0,
+          routeId: this.journeyToEdit?.route.id,
+          locationId: 0,
+          locationOrder: i + 1,
+          location: this.locationFormValue.locations[i],
+        };
+      }
+    }
+  }
+
+  private deleteLocations(): void {
+    if (
+      this.locationFormValue.locations.length <
+      this.journeyModel.route.routeLocations.length
+    ) {
+      let difference =
+        this.journeyModel.route.routeLocations.length -
+        this.locationFormValue.locations.length;
+      this.journeyModel.route.routeLocations.splice(-difference);
+    }
+  }
+
+  private bindUpdateFormValues(): void {
+    this.bindJourneyModelToJourneyToEdit();
+    this.locationFormValue = this.routeForm.form.value;
+    this.addNewLocations();
+    this.deleteLocations();
   }
 
   private getRandomIntInclusive(min: number, max: number): number {

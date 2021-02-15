@@ -21,6 +21,7 @@
           <app-journeys-list
             [journeys]="currentUserJourneys"
             (delete)="onJourneyDelete($event)"
+            (edit)="onJourneyEdit($event)"
           ></app-journeys-list>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-journeys',
@@ -6,7 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./journeys.component.scss'],
 })
 export class JourneysComponent implements OnInit {
-  constructor() {}
+  public journeyId: number = 0;
+  constructor(private _route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._route.queryParams.subscribe((journey) => {
+      this.journeyId = parseInt(journey['journeyId']);
+      if (isNaN(this.journeyId)) {
+        this.journeyId = 0;
+      }
+    });
+  }
 }

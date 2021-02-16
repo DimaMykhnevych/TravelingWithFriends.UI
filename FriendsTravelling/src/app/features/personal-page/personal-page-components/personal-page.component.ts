@@ -30,9 +30,6 @@ export class PersonalPageComponent implements OnInit {
   ngOnInit(): void {
     this._userService.loadUserInfo().subscribe((response) => {
       this.currentUserInfo = response;
-      // if(this.currentUserInfo.profileImagePath == ""){
-      //   this
-      // }
     });
   }
 

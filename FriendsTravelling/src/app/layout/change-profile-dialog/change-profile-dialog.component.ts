@@ -21,10 +21,10 @@ export class ChangeProfileDialogComponent implements OnInit {
   public form: FormGroup = this._builder.group({});
   public imageUploadForm: FormGroup = this._builder.group({});
   public progress: number = 0;
-  public message: string = null as any;
+  public message: string;
 
-  private imageResponse: IImage = null as any;
-  private dialogResult: IDialogResult = null as any;
+  private imageResponse: IImage;
+  private dialogResult: IDialogResult;
 
   constructor(
     public dialogRef: MatDialogRef<ChangeProfileDialogComponent>,

@@ -16,12 +16,15 @@
   <div class="d-flex justify-content-center m-3">
     <button
       type="submit"
+      [class.spinner]="isAdding || isEditing"
       (click)="onSubmitClick()"
       mat-raised-button
       [disabled]="
         routeForm.form.invalid ||
         journeyForm.form.invalid ||
-        transportForm.form.invalid
+        transportForm.form.invalid ||
+        isAdding ||
+        isEditing
       "
       color="primary"
       class="d-flex justify-content-center submit-btn"

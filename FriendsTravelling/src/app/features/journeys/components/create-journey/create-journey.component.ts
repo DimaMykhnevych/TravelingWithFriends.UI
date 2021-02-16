@@ -28,6 +28,8 @@ export class CreateJourneyComponent implements OnInit {
   };
   private journeyModel: IJourneyModel;
   public journeyToEdit: IJourneyModel;
+  public isAdding: boolean = false;
+  public isEditing: boolean = false;
 
   constructor(
     private _toastr: ToastrService,
@@ -48,7 +50,6 @@ export class CreateJourneyComponent implements OnInit {
   }
 
   public onSubmitClick() {
-    console.log(this.routeForm.form.value);
     this.bindFormValues();
     this.addCoordinates();
     if (this.journeyId !== 0 && !isNaN(this.journeyId)) {
@@ -71,8 +72,10 @@ export class CreateJourneyComponent implements OnInit {
   }
 
   private addJourney(): void {
+    this.isAdding = true;
     this._journeyService.addJourney(this.journeyModel).subscribe((response) => {
       if (response) {
+        this.isAdding = false;
         this._toastr.success('Your journey was added successfully');
         this.router.navigate(['/profile/myJourneys']);
       }
@@ -80,10 +83,12 @@ export class CreateJourneyComponent implements OnInit {
   }
 
   private updateJourney(): void {
+    this.isEditing = true;
     this._journeyService
       .updateJourney(this.journeyId, this.journeyModel)
       .subscribe((response) => {
         if (response) {
+          this.isEditing = false;
           this._toastr.success('Your journey was updated successfully');
           this.router.navigate(['/profile/myJourneys']);
         }

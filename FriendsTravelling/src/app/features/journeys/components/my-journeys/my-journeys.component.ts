@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs/operators';
 import { IJourneyModel } from 'src/app/core/models/journey';
+import { DialogService } from 'src/app/layout/confirm-dialog/serveices/dialog.service';
 import { MyJourneysService } from '../../services/my-journeys.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class MyJourneysComponent implements OnInit {
   constructor(
     private _myJourneysService: MyJourneysService,
     private _toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private _dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -32,8 +34,22 @@ export class MyJourneysComponent implements OnInit {
   }
 
   public onJourneyDelete(journeyId: number) {
+    this._dialogService
+      .openConfirmDialog({
+        title: 'Journey deleting',
+        content: `Are you sure you want to delete this journey?`,
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res == 'yes') {
+          this.deleteJourney(journeyId);
+        }
+      });
+  }
+
+  private deleteJourney(id: number): void {
     this._myJourneysService
-      .deleteUserJourney(journeyId)
+      .deleteUserJourney(id)
       .pipe(filter(Boolean))
       .subscribe(() => {
         this._toastr.success('Your journey was deleted successfully');

@@ -21,6 +21,12 @@
       </mat-card>
       <div class="main">
         <h2 class="heading text-center">Start travelling now!</h2>
+        <div *ngIf="isLoading">
+          <app-spinner></app-spinner>
+        </div>
+        <div *ngIf="journeys.length === 0 && !isLoading">
+          <h3 class="heading text-center">No one has created a journey yet</h3>
+        </div>
         <app-journeys-list
           [journeys]="journeys"
           [isEditable]="false"

@@ -9,6 +9,7 @@ import { JourneyService } from '../../services/journey.service';
 })
 export class AllJourneysComponent implements OnInit {
   public journeys: IJourneyModel[] = [];
+  public isLoading: boolean = true;
   constructor(private _journeyService: JourneyService) {}
 
   ngOnInit(): void {
@@ -18,6 +19,7 @@ export class AllJourneysComponent implements OnInit {
   private getUserJourneys(): void {
     this._journeyService.getAllJourneys().subscribe((resp) => {
       if (resp) {
+        this.isLoading = false;
         this.journeys = resp;
       }
     });

@@ -8,6 +8,7 @@ import { IJourneyModel } from 'src/app/core/models/journey';
 })
 export class JourneysListComponent implements OnInit {
   @Input() public journeys: IJourneyModel[] = [];
+  @Input() public isEditable: boolean;
   @Output()
   public delete: EventEmitter<number> = new EventEmitter<number>();
   @Output()

@@ -10,6 +10,13 @@ import { AppSettings } from 'src/app/core/settings';
 export class JourneyService {
   constructor(private _http: HttpClient) {}
 
+  public getAllJourneys(): Observable<IJourneyModel[]> {
+    let data = { isForCurrentUser: 'false' };
+    return this._http.get<IJourneyModel[]>(`${AppSettings.apiHost}/journey`, {
+      params: data,
+    });
+  }
+
   public getJourneyById(id: number): Observable<IJourneyModel> {
     return this._http.get<IJourneyModel>(
       `${AppSettings.apiHost}/journey/${id}`

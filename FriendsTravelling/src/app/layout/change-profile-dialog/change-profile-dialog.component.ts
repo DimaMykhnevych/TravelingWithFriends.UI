@@ -6,11 +6,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { IUserInfo } from 'src/app/core/auth';
 import { ProfileImageService } from './services/profile-image.service';
 import { HttpEventType } from '@angular/common/http';
 import { IImage } from './models/image.model';
 import { IDialogResult } from './models/dialog-result.model';
+import { IAppUserModel } from 'src/app/core/models/app-user';
 
 @Component({
   selector: 'app-change-profile-dialog',
@@ -28,14 +28,14 @@ export class ChangeProfileDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ChangeProfileDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { userInfo: IUserInfo },
+    @Inject(MAT_DIALOG_DATA) public data: { userInfo: IAppUserModel },
     private _builder: FormBuilder,
     private _imageService: ProfileImageService
   ) {}
 
   ngOnInit(): void {
     this.form = this._builder.group({
-      userName: new FormControl(this.data.userInfo.username, [
+      userName: new FormControl(this.data.userInfo.userName, [
         Validators.required,
       ]),
       email: new FormControl(this.data.userInfo.email, [
@@ -106,7 +106,7 @@ export class ChangeProfileDialogComponent implements OnInit {
 
     let uniqueFileName =
       splitedFileNameWithFileFormat.join('.') +
-      this.data.userInfo.userId +
+      this.data.userInfo.id +
       '.' +
       fileFormat;
     return uniqueFileName;

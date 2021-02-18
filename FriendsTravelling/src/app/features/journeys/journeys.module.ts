@@ -15,6 +15,7 @@ import { JourneysListComponent } from './components/journeys-list/journeys-list.
 import { JourneyListItemComponent } from './components/journey-list-item/journey-list-item.component';
 import { SpinnerModule } from 'src/app/layout/spinner/spinner.module';
 import { RouterModule } from '@angular/router';
+import { AllJourneysComponent } from './components/all-journeys/all-journeys.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RouterModule } from '@angular/router';
     MyJourneysComponent,
     JourneysListComponent,
     JourneyListItemComponent,
+    AllJourneysComponent,
   ],
   imports: [
     CommonModule,

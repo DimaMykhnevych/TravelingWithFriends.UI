@@ -4,12 +4,29 @@
       <mat-card-title
         >{{ journey.route.routeLocations[0].location.name }} Joruney ({{
           journey.startDate | date
-        }})</mat-card-title
-      >
-      <mat-card-subtitle>{{ getFullRouteString() }}</mat-card-subtitle>
+        }})
+        <img
+          width="40"
+          height="40"
+          class="rounded-circle profile-image"
+          [src]="createImgPath()"
+        />
+      </mat-card-title>
+      <mat-card-subtitle>
+        <span
+          >Created By:
+          <button
+            (click)="onUserNameClick($event)"
+            class="created-by-button"
+            mat-button
+          >
+            {{ journey.userJourneys[0].appUser.userName }}
+          </button></span
+        >
+      </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>{{ journey.description }}.</p>
+      <p>{{ journey.description }}</p>
       <div class="row d-flex justify-content-around">
         <div class="col-lg-3 col-md-3">
           <p>
@@ -52,20 +69,26 @@
           </p>
         </div>
       </div>
-      <p>Route</p>
+      <p><b>Route</b></p>
       <span *ngFor="let routeLocation of journey.route.routeLocations">
         {{ routeLocation.location.name }}({{ routeLocation.location.country }})
         <i class="fas fa-arrow-right"></i>
       </span>
       <i class="fas fa-home ml-1"></i>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="onEditJourneyClick()">
-        Edit
-      </button>
-      <button mat-raised-button color="warn" (click)="onDeleteJourneyClick()">
-        Delete
-      </button>
-    </mat-card-actions>
+    <div *ngIf="isEditable">
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onEditJourneyClick()"
+        >
+          Edit
+        </button>
+        <button mat-raised-button color="warn" (click)="onDeleteJourneyClick()">
+          Delete
+        </button>
+      </mat-card-actions>
+    </div>
   </mat-card>
 </div>

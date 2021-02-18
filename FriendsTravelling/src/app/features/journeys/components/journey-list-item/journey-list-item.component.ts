@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { isNil } from 'lodash';
 import { IJourneyModel } from 'src/app/core/models/journey';
+import { AppSettings } from 'src/app/core/settings';
 
 @Component({
   selector: 'app-journey-list-item',
@@ -8,21 +11,22 @@ import { IJourneyModel } from 'src/app/core/models/journey';
 })
 export class JourneyListItemComponent implements OnInit {
   @Input() public journey: IJourneyModel = null as any;
+  @Input() public isEditable: boolean;
   @Output()
   public delete: EventEmitter<number> = new EventEmitter<number>();
   @Output()
   public edit: EventEmitter<number> = new EventEmitter<number>();
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
-  public getFullRouteString(): string {
-    let routeString = '';
-    let routeLocations = this.journey.route.routeLocations;
-    for (let i = 0; i < routeLocations.length; i++) {
-      routeString += `${routeLocations[i].location.name} => `;
+  public createImgPath(): string {
+    let path: string = this.journey.userJourneys[0].appUser.profileImage
+      .imagePath;
+    if (!isNil(path) && path != '') {
+      return `${AppSettings.hubHost}/${path}`;
     }
-    return routeString.slice(0, -4);
+    return '../../../../../assets/images/avatar-default.png';
   }
 
   public onEditJourneyClick() {
@@ -31,5 +35,14 @@ export class JourneyListItemComponent implements OnInit {
 
   public onDeleteJourneyClick() {
     this.delete.emit(this.journey.id);
+  }
+
+  public onUserNameClick(e: Event) {
+    e.preventDefault();
+    this.router.navigate(['/profile/user'], {
+      queryParams: {
+        userId: this.journey.userJourneys[0].appUser.id,
+      },
+    });
   }
 }

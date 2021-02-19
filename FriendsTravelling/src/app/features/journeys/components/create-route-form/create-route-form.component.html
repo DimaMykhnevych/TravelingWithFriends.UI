@@ -6,7 +6,7 @@
     </button>
   </div>
 </div>
-<form [formGroup]="form">
+<form [formGroup]="form" class="create-route-form">
   <div formArrayName="locations" class="row p-3 d-flex justify-content-center">
     <div
       *ngFor="let route of locations.controls; let i = index"

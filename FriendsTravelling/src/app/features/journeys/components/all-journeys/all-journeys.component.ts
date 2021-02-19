@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IJourneyModel } from 'src/app/core/models/journey';
 import { JourneyService } from '../../services/journey.service';
 
@@ -10,10 +11,21 @@ import { JourneyService } from '../../services/journey.service';
 export class AllJourneysComponent implements OnInit {
   public journeys: IJourneyModel[] = [];
   public isLoading: boolean = true;
-  constructor(private _journeyService: JourneyService) {}
+  constructor(
+    private _journeyService: JourneyService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getUserJourneys();
+  }
+
+  public onUserNameClicked(userId: number) {
+    this.router.navigate(['/profile/user'], {
+      queryParams: {
+        userId: userId,
+      },
+    });
   }
 
   private getUserJourneys(): void {

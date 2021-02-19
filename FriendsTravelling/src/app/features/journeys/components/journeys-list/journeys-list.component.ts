@@ -13,16 +13,22 @@ export class JourneysListComponent implements OnInit {
   public delete: EventEmitter<number> = new EventEmitter<number>();
   @Output()
   public edit: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  public usernameClicked: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  public onEditJourney(journeyId: number) {
+  public onEditJourney(journeyId: number): void {
     this.edit.emit(journeyId);
   }
 
-  public onDeleteJourney(journeyId: number) {
+  public onDeleteJourney(journeyId: number): void {
     this.delete.emit(journeyId);
+  }
+
+  public onUserNameClicked(userId: number): void {
+    this.usernameClicked.emit(userId);
   }
 }

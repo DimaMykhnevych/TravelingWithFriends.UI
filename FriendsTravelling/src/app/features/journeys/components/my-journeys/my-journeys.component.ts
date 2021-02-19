@@ -47,6 +47,10 @@ export class MyJourneysComponent implements OnInit {
       });
   }
 
+  public onUserNameClicked(userId: number): void {
+    this.router.navigate(['/profile']);
+  }
+
   private deleteJourney(id: number): void {
     this._myJourneysService
       .deleteUserJourney(id)

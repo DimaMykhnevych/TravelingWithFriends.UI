@@ -30,6 +30,7 @@
         <app-journeys-list
           [journeys]="journeys"
           [isEditable]="false"
+          (usernameClicked)="onUserNameClicked($event)"
         ></app-journeys-list>
       </div>
     </div>

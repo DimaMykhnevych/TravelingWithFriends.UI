@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IUserInfo, UserInfoService } from 'src/app/core/auth';
+import { ActivatedRoute } from '@angular/router';
 import { IAppUserModel } from 'src/app/core/models/app-user';
 import { UserProfileService } from '../../services/user-profile.service';
 
@@ -14,9 +13,7 @@ export class UserProfileComponent implements OnInit {
   public currentlyRequestedUserInfo: IAppUserModel;
   constructor(
     private _route: ActivatedRoute,
-    private _router: Router,
-    private _userService: UserProfileService,
-    private _currentUserService: UserInfoService
+    private _userService: UserProfileService
   ) {}
 
   ngOnInit(): void {
@@ -33,18 +30,6 @@ export class UserProfileComponent implements OnInit {
     this._userService.getUserById(this.userId).subscribe((response) => {
       if (response) {
         this.currentlyRequestedUserInfo = response;
-        this.navigateToOwnerProfile();
-      }
-    });
-  }
-
-  private navigateToOwnerProfile(): void {
-    this._currentUserService.loadUserInfo().subscribe((user) => {
-      if (
-        user.userId ===
-        this.currentlyRequestedUserInfo?.userJourneys[0]?.journey?.organizerId
-      ) {
-        this._router.navigate(['/profile']);
       }
     });
   }

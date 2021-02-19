@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { isNil } from 'lodash';
 import { IJourneyModel } from 'src/app/core/models/journey';
 import { AppSettings } from 'src/app/core/settings';
@@ -16,7 +15,9 @@ export class JourneyListItemComponent implements OnInit {
   public delete: EventEmitter<number> = new EventEmitter<number>();
   @Output()
   public edit: EventEmitter<number> = new EventEmitter<number>();
-  constructor(private router: Router) {}
+  @Output()
+  public usernameClicked: EventEmitter<number> = new EventEmitter<number>();
+  constructor() {}
 
   ngOnInit(): void {}
 
@@ -29,20 +30,16 @@ export class JourneyListItemComponent implements OnInit {
     return '../../../../../assets/images/avatar-default.png';
   }
 
-  public onEditJourneyClick() {
+  public onEditJourneyClick(): void {
     this.edit.emit(this.journey.id);
   }
 
-  public onDeleteJourneyClick() {
+  public onDeleteJourneyClick(): void {
     this.delete.emit(this.journey.id);
   }
 
-  public onUserNameClick(e: Event) {
+  public onUserNameClick(e: Event): void {
     e.preventDefault();
-    this.router.navigate(['/profile/user'], {
-      queryParams: {
-        userId: this.journey.userJourneys[0].appUser.id,
-      },
-    });
+    this.usernameClicked.emit(this.journey.userJourneys[0].appUserId);
   }
 }

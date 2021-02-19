@@ -40,15 +40,21 @@ export class CreateJourneyComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.journeyId !== 0 && !isNaN(this.journeyId)) {
-      this._journeyService
-        .getJourneyById(this.journeyId)
-        .subscribe((response) => {
-          if (response) {
-            this.isLoading = false;
-            this.journeyToEdit = response;
-          }
-        });
+      this.getJourneyToEdit();
+    } else {
+      this.isLoading = false;
     }
+  }
+
+  private getJourneyToEdit() {
+    this._journeyService
+      .getJourneyById(this.journeyId)
+      .subscribe((response) => {
+        if (response) {
+          this.isLoading = false;
+          this.journeyToEdit = response;
+        }
+      });
   }
 
   public onSubmitClick() {

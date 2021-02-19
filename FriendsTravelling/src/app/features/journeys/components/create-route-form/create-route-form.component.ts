@@ -30,9 +30,7 @@ export class CreateRouteFormComponent implements OnInit {
     this.form = this._builder.group({});
   }
 
-  ngOnInit(): void {
-    this.initializeForm(null);
-  }
+  ngOnInit(): void {}
 
   public onAddRouteClick(): void {
     this.locations.push(this.getFormArrayElement(null));

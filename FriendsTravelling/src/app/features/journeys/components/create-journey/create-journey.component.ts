@@ -30,6 +30,7 @@ export class CreateJourneyComponent implements OnInit {
   public journeyToEdit: IJourneyModel;
   public isAdding: boolean = false;
   public isEditing: boolean = false;
+  public isLoading: boolean = true;
 
   constructor(
     private _toastr: ToastrService,
@@ -43,6 +44,7 @@ export class CreateJourneyComponent implements OnInit {
         .getJourneyById(this.journeyId)
         .subscribe((response) => {
           if (response) {
+            this.isLoading = false;
             this.journeyToEdit = response;
           }
         });

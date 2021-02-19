@@ -18,7 +18,7 @@ import { StartDateValidator } from '../../validators/start-date.validator';
 export class CreateJourneyFormComponent implements OnInit, OnDestroy {
   @Input() public set journey(j: IJourneyModel) {
     this._journey = j;
-    this.initializeForm(j);
+    this.initializeForm(this._journey);
   }
   public get journey(): IJourneyModel {
     return this._journey;
@@ -34,7 +34,7 @@ export class CreateJourneyFormComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.initializeForm(null as any);
+    // this.initializeForm(null);
     this.subscribeOnFormValueChanges();
   }
 

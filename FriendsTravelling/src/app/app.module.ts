@@ -33,15 +33,15 @@ import { ConfirmDialogComponent } from './layout/confirm-dialog/confirm-dialog.c
     ToastrModule.forRoot(),
     JourneysModule,
   ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (userInfoService: UserInfoService) =>
-        loadUserInfo(userInfoService),
-      deps: [UserInfoService],
-      multi: true,
-    },
-  ],
+  // providers: [
+  //   {
+  //     provide: APP_INITIALIZER,
+  //     useFactory: (userInfoService: UserInfoService) =>
+  //       loadUserInfo(userInfoService),
+  //     deps: [UserInfoService],
+  //     multi: true,
+  //   },
+  // ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

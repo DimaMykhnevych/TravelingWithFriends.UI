@@ -21,8 +21,8 @@ export class JourneyListItemComponent implements OnInit {
   ngOnInit(): void {}
 
   public createImgPath(): string {
-    let path: string = this.journey.userJourneys[0].appUser.profileImage
-      .imagePath;
+    let path: string = this.journey?.userJourneys[0]?.appUser?.profileImage
+      ?.imagePath;
     if (!isNil(path) && path != '') {
       return `${AppSettings.hubHost}/${path}`;
     }

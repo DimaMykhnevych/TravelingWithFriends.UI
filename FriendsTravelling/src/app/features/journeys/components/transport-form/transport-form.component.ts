@@ -26,9 +26,7 @@ export class TransportFormComponent implements OnInit {
     this.form = this._builder.group({});
   }
 
-  ngOnInit(): void {
-    this.initializeForm(null);
-  }
+  ngOnInit(): void {}
 
   get name() {
     return this.form.get('name');

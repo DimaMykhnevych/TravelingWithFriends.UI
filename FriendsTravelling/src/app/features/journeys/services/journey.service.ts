@@ -24,6 +24,7 @@ export class JourneyService {
   }
 
   public addJourney(journey: IJourneyModel): Observable<IJourneyModel> {
+    journey.userJourneys = null;
     return this._http.post<IJourneyModel>(
       `${AppSettings.apiHost}/journey`,
       journey
@@ -34,6 +35,7 @@ export class JourneyService {
     journeyId: number,
     journey: IJourneyModel
   ): Observable<IJourneyModel> {
+    journey.userJourneys = null;
     return this._http.put<IJourneyModel>(
       `${AppSettings.apiHost}/journey/${journeyId}`,
       journey

@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { convertToHttpParams } from 'src/app/core/http';
 import { IJourneyModel } from 'src/app/core/models/journey';
+import { ISearchJourneyModel } from 'src/app/core/models/search-journey';
 import { AppSettings } from 'src/app/core/settings';
 
 @Injectable({
@@ -10,10 +12,14 @@ import { AppSettings } from 'src/app/core/settings';
 export class JourneyService {
   constructor(private _http: HttpClient) {}
 
-  public getAllJourneys(): Observable<IJourneyModel[]> {
-    let data = { isForCurrentUser: 'false' };
+  public getAllJourneys(
+    params: ISearchJourneyModel
+  ): Observable<IJourneyModel[]> {
+    const parameters: HttpParams = convertToHttpParams<ISearchJourneyModel>(
+      params
+    );
     return this._http.get<IJourneyModel[]>(`${AppSettings.apiHost}/journey`, {
-      params: data,
+      params: parameters,
     });
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IJourneyModel } from 'src/app/core/models/journey';
+import { ISearchJourneyModel } from 'src/app/core/models/search-journey';
 import { JourneyService } from '../../services/journey.service';
 
 @Component({
@@ -11,10 +12,10 @@ import { JourneyService } from '../../services/journey.service';
 export class AllJourneysComponent implements OnInit {
   public journeys: IJourneyModel[] = [];
   public isLoading: boolean = true;
-  constructor(
-    private _journeyService: JourneyService,
-    private router: Router
-  ) {}
+  public searchParams: ISearchJourneyModel;
+  constructor(private _journeyService: JourneyService, private router: Router) {
+    this.searchParams = { isForCurrentUser: false };
+  }
 
   ngOnInit(): void {
     this.getUserJourneys();
@@ -29,7 +30,7 @@ export class AllJourneysComponent implements OnInit {
   }
 
   private getUserJourneys(): void {
-    this._journeyService.getAllJourneys().subscribe((resp) => {
+    this._journeyService.getAllJourneys(this.searchParams).subscribe((resp) => {
       if (resp) {
         this.isLoading = false;
         this.journeys = resp;

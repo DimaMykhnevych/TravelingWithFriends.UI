@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs/operators';
 import { IJourneyModel } from 'src/app/core/models/journey';
+import { ISearchJourneyModel } from 'src/app/core/models/search-journey';
 import { DialogService } from 'src/app/layout/confirm-dialog/serveices/dialog.service';
 import { MyJourneysService } from '../../services/my-journeys.service';
 
@@ -14,12 +15,15 @@ import { MyJourneysService } from '../../services/my-journeys.service';
 export class MyJourneysComponent implements OnInit {
   public currentUserJourneys: IJourneyModel[] = [];
   public isLoading: boolean = true;
+  public searchParams: ISearchJourneyModel;
   constructor(
     private _myJourneysService: MyJourneysService,
     private _toastr: ToastrService,
     private router: Router,
     private _dialogService: DialogService
-  ) {}
+  ) {
+    this.searchParams = { isForCurrentUser: true };
+  }
 
   ngOnInit(): void {
     this.getUserJourneys();
@@ -62,11 +66,13 @@ export class MyJourneysComponent implements OnInit {
   }
 
   private getUserJourneys(): void {
-    this._myJourneysService.getCurrentUserJourneys().subscribe((resp) => {
-      if (resp) {
-        this.currentUserJourneys = resp;
-        this.isLoading = false;
-      }
-    });
+    this._myJourneysService
+      .getCurrentUserJourneys(this.searchParams)
+      .subscribe((resp) => {
+        if (resp) {
+          this.currentUserJourneys = resp;
+          this.isLoading = false;
+        }
+      });
   }
 }

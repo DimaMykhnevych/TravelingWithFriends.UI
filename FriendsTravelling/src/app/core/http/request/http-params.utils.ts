@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { isNil } from 'lodash';
-export function convertToHttpParams<T = object>(params: any): HttpParams {
+export function convertToHttpParams<T = object>(params: T): HttpParams {
   return Object.keys(params).reduce(
     (previousValue: HttpParams, key: string) =>
       !isNil(params[key])

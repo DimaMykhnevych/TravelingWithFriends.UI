@@ -12,6 +12,7 @@ import { JourneyService } from '../../services/journey.service';
 export class AllJourneysComponent implements OnInit {
   public journeys: IJourneyModel[] = [];
   public isLoading: boolean = true;
+  public isSearching: boolean = false;
   public searchParams: ISearchJourneyModel;
   constructor(private _journeyService: JourneyService, private router: Router) {
     this.searchParams = { isForCurrentUser: false };
@@ -27,6 +28,13 @@ export class AllJourneysComponent implements OnInit {
         userId: userId,
       },
     });
+  }
+
+  public onJourneySearch(searchParams: ISearchJourneyModel): void {
+    this.searchParams = searchParams;
+    this.searchParams.isForCurrentUser = false;
+    this.isSearching = true;
+    this.getUserJourneys();
   }
 
   private getUserJourneys(): void {

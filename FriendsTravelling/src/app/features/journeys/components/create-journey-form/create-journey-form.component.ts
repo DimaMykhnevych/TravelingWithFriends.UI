@@ -34,7 +34,6 @@ export class CreateJourneyFormComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    // this.initializeForm(null);
     this.subscribeOnFormValueChanges();
   }
 
@@ -65,7 +64,7 @@ export class CreateJourneyFormComponent implements OnInit, OnDestroy {
     return this.form.get('description');
   }
 
-  private initializeForm(journey: IJourneyModel) {
+  private initializeForm(journey: IJourneyModel): void {
     this.form = this._builder.group({
       startDate: new FormControl(journey?.startDate, [
         Validators.required,
@@ -92,7 +91,7 @@ export class CreateJourneyFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  private subscribeOnFormValueChanges() {
+  private subscribeOnFormValueChanges(): void {
     this.form.valueChanges
       .pipe(takeUntil(this._destroy$))
       .subscribe((value) => {

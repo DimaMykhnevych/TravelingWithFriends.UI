@@ -16,6 +16,8 @@ import { JourneyListItemComponent } from './components/journey-list-item/journey
 import { SpinnerModule } from 'src/app/layout/spinner/spinner.module';
 import { RouterModule } from '@angular/router';
 import { AllJourneysComponent } from './components/all-journeys/all-journeys.component';
+import { SearchJourneyFormComponent } from './components/search-journey-form/search-journey-form.component';
+import { SearchJourneyFormContainerComponent } from './components/search-journey-form-container/search-journey-form-container.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { AllJourneysComponent } from './components/all-journeys/all-journeys.com
     JourneysListComponent,
     JourneyListItemComponent,
     AllJourneysComponent,
+    SearchJourneyFormComponent,
+    SearchJourneyFormContainerComponent,
   ],
   imports: [
     CommonModule,

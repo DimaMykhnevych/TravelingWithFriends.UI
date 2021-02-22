@@ -12,26 +12,12 @@
       font-family: "Montserrat", sans-serif;
       color: cornsilk;
     }
-    .sidebar {
-      width: 25%;
-      height: 50vh;
-      overflow: auto;
-      position: -webkit-sticky;
-      position: sticky;
-      top: 15%;
-      //   background-color: rgb(144, 166, 206);
-    }
     .main {
-      width: 70%;
+      width: 90%;
       display: flex;
       flex-direction: column;
       background-color: rgba(241, 224, 201, 0.301);
       border-radius: 10px;
     }
   }
-}
-
-.main,
-.sidebar {
-  padding: 15px;
 }

@@ -3,6 +3,7 @@
     <div class="container">
       <div class="search-panel">
         <app-search-journey-form-container
+          class="search-panel"
           (onJourneySearch)="onJourneySearch($event)"
         ></app-search-journey-form-container>
       </div>
@@ -23,6 +24,7 @@
           [journeys]="journeys"
           [isEditable]="false"
           (usernameClicked)="onUserNameClicked($event)"
+          (joinBtnClicked)="onJoinBtnCLicked($event)"
         ></app-journeys-list>
       </div>
     </div>

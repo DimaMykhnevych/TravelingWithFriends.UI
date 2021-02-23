@@ -15,6 +15,8 @@ export class JourneysListComponent implements OnInit {
   public edit: EventEmitter<number> = new EventEmitter<number>();
   @Output()
   public usernameClicked: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  public joinBtnClicked: EventEmitter<IJourneyModel> = new EventEmitter<IJourneyModel>();
 
   constructor() {}
 
@@ -30,5 +32,9 @@ export class JourneysListComponent implements OnInit {
 
   public onUserNameClicked(userId: number): void {
     this.usernameClicked.emit(userId);
+  }
+
+  public onjoinBtnCliced(journey: IJourneyModel): void {
+    this.joinBtnClicked.emit(journey);
   }
 }

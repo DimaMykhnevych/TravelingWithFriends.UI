@@ -21,3 +21,15 @@
     }
   }
 }
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .main {
+    width: 100%;
+  }
+  .search-panel {
+    margin-left: 15%;
+    margin-bottom: 10px;
+  }
+}

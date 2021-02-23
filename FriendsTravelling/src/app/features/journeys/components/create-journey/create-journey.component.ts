@@ -138,11 +138,12 @@ export class CreateJourneyComponent implements OnInit {
     let journeyForm = this.journeyForm.form.value;
     let transportForm = this.transportForm.form.value;
     this.journeyModel = this.journeyToEdit;
-    this.journeyModel.startDate = journeyForm.startDate;
-    this.journeyModel.endDate = journeyForm.endDate;
+    this.journeyModel.startDate = new Date(journeyForm.startDate.toString());
+    this.journeyModel.endDate = new Date(journeyForm.endDate.toString());
     this.journeyModel.price = journeyForm.price;
     this.journeyModel.minimumRequiredAge = journeyForm.minimumRequiredAge;
     this.journeyModel.maximumRequiredAge = journeyForm.maximumRequiredAge;
+    this.journeyModel.availablePlaces = journeyForm.availablePlaces;
     this.journeyModel.description = journeyForm.description;
     this.journeyModel.route.transport.name = transportForm.name;
     this.journeyModel.route.transport.description = transportForm.description;

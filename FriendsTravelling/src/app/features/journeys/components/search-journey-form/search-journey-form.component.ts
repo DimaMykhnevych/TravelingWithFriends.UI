@@ -57,8 +57,10 @@ export class SearchJourneyFormComponent implements OnInit, OnDestroy {
   }
 
   private checkAge(value: ISearchJourneyModel): void {
-    if (value.minAge !== 0 && value.maxAge !== 0) {
-      if (value.minAge > value.maxAge) {
+    const minAge = Number(value.minAge);
+    const maxAge = Number(value.maxAge);
+    if (minAge !== 0 && maxAge !== 0) {
+      if (minAge > maxAge) {
         this.form.controls.maxAge.setErrors({
           wrongMaxAge: true,
         });

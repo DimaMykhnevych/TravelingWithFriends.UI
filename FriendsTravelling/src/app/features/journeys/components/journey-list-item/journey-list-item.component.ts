@@ -9,7 +9,7 @@ import { AppSettings } from 'src/app/core/settings';
   styleUrls: ['./journey-list-item.component.scss'],
 })
 export class JourneyListItemComponent implements OnInit {
-  @Input() public journey: IJourneyModel = null as any;
+  @Input() public journey: IJourneyModel;
   @Input() public isEditable: boolean;
   @Output()
   public delete: EventEmitter<number> = new EventEmitter<number>();
@@ -17,6 +17,9 @@ export class JourneyListItemComponent implements OnInit {
   public edit: EventEmitter<number> = new EventEmitter<number>();
   @Output()
   public usernameClicked: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  public joinBtnCliced: EventEmitter<IJourneyModel> = new EventEmitter<IJourneyModel>();
+  public isJoinBtnDisabled: boolean = false;
   constructor() {}
 
   ngOnInit(): void {}
@@ -41,5 +44,10 @@ export class JourneyListItemComponent implements OnInit {
   public onUserNameClick(e: Event): void {
     e.preventDefault();
     this.usernameClicked.emit(this.journey.userJourneys[0].appUserId);
+  }
+
+  public onJoinButtonClick(): void {
+    this.isJoinBtnDisabled = true;
+    this.joinBtnCliced.emit(this.journey);
   }
 }

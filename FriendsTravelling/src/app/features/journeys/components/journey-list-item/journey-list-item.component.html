@@ -2,7 +2,7 @@
   <mat-card class="card">
     <mat-card-header>
       <mat-card-title
-        >{{ journey.route.routeLocations[0].location.name }} Joruney ({{
+        >{{ journey.route.routeLocations[0].location.name }} Journey ({{
           journey.startDate | date
         }})
         <img
@@ -89,6 +89,16 @@
           Delete
         </button>
       </mat-card-actions>
+    </div>
+    <div *ngIf="!isEditable">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onJoinButtonClick()"
+        [disabled]="isJoinBtnDisabled"
+      >
+        Join this journey
+      </button>
     </div>
   </mat-card>
 </div>

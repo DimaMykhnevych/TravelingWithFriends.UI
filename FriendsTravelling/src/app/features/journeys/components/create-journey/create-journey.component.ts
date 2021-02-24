@@ -4,6 +4,7 @@ import { isNil } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { IJourneyModel } from 'src/app/core/models/journey';
 import { ILocationModel } from 'src/app/core/models/location';
+import { JourneyRequestService } from '../../services/journey-request.service';
 import { JourneyService } from '../../services/journey.service';
 import { CreateJourneyFormComponent } from '../create-journey-form/create-journey-form.component';
 import { CreateRouteFormComponent } from '../create-route-form/create-route-form.component';
@@ -31,19 +32,32 @@ export class CreateJourneyComponent implements OnInit {
   public isAdding: boolean = false;
   public isEditing: boolean = false;
   public isLoading: boolean = true;
+  public wasJourneyRequested: boolean = false;
 
   constructor(
     private _toastr: ToastrService,
     private router: Router,
-    private _journeyService: JourneyService
+    private _journeyService: JourneyService,
+    private _journeyRequestService: JourneyRequestService
   ) {}
 
   ngOnInit(): void {
     if (this.journeyId !== 0 && !isNaN(this.journeyId)) {
+      this.findEditingJourneyInRequests();
       this.getJourneyToEdit();
     } else {
       this.isLoading = false;
     }
+  }
+
+  private findEditingJourneyInRequests(): void {
+    this._journeyRequestService
+      .getRequestByJourneyId(this.journeyId)
+      .subscribe((resp) => {
+        if (resp != null) {
+          this.wasJourneyRequested = true;
+        }
+      });
   }
 
   private getJourneyToEdit() {
@@ -138,8 +152,12 @@ export class CreateJourneyComponent implements OnInit {
     let journeyForm = this.journeyForm.form.value;
     let transportForm = this.transportForm.form.value;
     this.journeyModel = this.journeyToEdit;
-    this.journeyModel.startDate = new Date(journeyForm.startDate.toString());
-    this.journeyModel.endDate = new Date(journeyForm.endDate.toString());
+    this.journeyModel.startDate = this.convertDateToRightFormat(
+      journeyForm.startDate
+    );
+    this.journeyModel.endDate = this.convertDateToRightFormat(
+      journeyForm.endDate
+    );
     this.journeyModel.price = journeyForm.price;
     this.journeyModel.minimumRequiredAge = journeyForm.minimumRequiredAge;
     this.journeyModel.maximumRequiredAge = journeyForm.maximumRequiredAge;
@@ -147,6 +165,22 @@ export class CreateJourneyComponent implements OnInit {
     this.journeyModel.description = journeyForm.description;
     this.journeyModel.route.transport.name = transportForm.name;
     this.journeyModel.route.transport.description = transportForm.description;
+  }
+
+  private convertDateToRightFormat(date: Date): Date {
+    if (typeof date === 'string') {
+      return date;
+    }
+    let utcDate = new Date(
+      Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        date.getHours(),
+        date.getMinutes()
+      )
+    );
+    return utcDate;
   }
 
   private addNewLocations(): void {

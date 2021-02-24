@@ -1,4 +1,5 @@
 import { IImageModel } from './image';
+import { IJourneyRequestModel } from './journey-request';
 import { IUserJourneysModel } from './user-journey';
 
 export interface IAppUserModel {
@@ -11,4 +12,5 @@ export interface IAppUserModel {
   email?: string;
   userJourneys: IUserJourneysModel[];
   profileImage: IImageModel;
+  journeyRequests: IJourneyRequestModel[];
 }

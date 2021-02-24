@@ -50,12 +50,18 @@
         </div>
         <div class="col-lg-3 col-md-3">
           <p>
-            <i class="fas fa-chair"></i> Available places:
-            {{ journey.availablePlaces }}
-          </p>
-          <p>
             <i class="fas fa-money-bill-wave"></i> Price per ticket:
             {{ journey.price }}
+          </p>
+          <p>
+            <i class="fas fa-chair"></i> Available places:
+            {{ journey.availablePlaces }} (considering current requests)
+            <span
+              class="bg-info text-white"
+              *ngIf="journey.availablePlaces == 0"
+              ><br />
+              all places are reserved</span
+            >
           </p>
         </div>
         <div class="col-lg-3 col-md-3">

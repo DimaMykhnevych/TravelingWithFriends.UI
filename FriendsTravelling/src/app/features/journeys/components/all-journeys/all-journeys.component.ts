@@ -49,9 +49,7 @@ export class AllJourneysComponent implements OnInit {
     };
     this._journeyRequestService
       .addJourneyRequest(addRequestModel)
-      .subscribe((response) => {
-        console.log(response);
-      });
+      .subscribe((response) => {});
   }
 
   public onJourneySearch(searchParams: ISearchJourneyModel): void {

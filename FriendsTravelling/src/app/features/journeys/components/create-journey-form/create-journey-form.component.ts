@@ -8,6 +8,7 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { IJourneyModel } from 'src/app/core/models/journey';
+import { AvailablePlacesValidator } from '../../validators/available-places.validator';
 import { StartDateValidator } from '../../validators/start-date.validator';
 
 @Component({
@@ -16,9 +17,15 @@ import { StartDateValidator } from '../../validators/start-date.validator';
   styleUrls: ['./create-journey-form.component.scss'],
 })
 export class CreateJourneyFormComponent implements OnInit, OnDestroy {
+  @Input() public set wasJourneyRequested(result: boolean) {
+    this._wasJourneyRequested = result;
+    this.initializeForm(this._journey);
+  }
+  public get wasJourneyRequested(): boolean {
+    return this._wasJourneyRequested;
+  }
   @Input() public set journey(j: IJourneyModel) {
     this._journey = j;
-    this.initializeForm(this._journey);
   }
   public get journey(): IJourneyModel {
     return this._journey;
@@ -28,6 +35,7 @@ export class CreateJourneyFormComponent implements OnInit, OnDestroy {
 
   private _journey: IJourneyModel;
   private _destroy$: Subject<void> = new Subject<void>();
+  private _wasJourneyRequested: boolean;
 
   constructor(private _builder: FormBuilder) {
     this.form = this._builder.group({});
@@ -78,6 +86,7 @@ export class CreateJourneyFormComponent implements OnInit, OnDestroy {
       availablePlaces: new FormControl(journey?.availablePlaces, [
         Validators.required,
         Validators.min(1),
+        AvailablePlacesValidator(this.journey, this.wasJourneyRequested),
       ]),
       minimumRequiredAge: new FormControl(journey?.minimumRequiredAge, [
         Validators.required,

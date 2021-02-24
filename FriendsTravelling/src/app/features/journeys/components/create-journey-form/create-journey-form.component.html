@@ -7,6 +7,7 @@
         <input
           formControlName="startDate"
           matInput
+          type="datetime"
           [matDatepicker]="startDatePicker"
           required
         />
@@ -29,6 +30,7 @@
         <input
           formControlName="endDate"
           required
+          type="datetime"
           matInput
           [matDatepicker]="endDatePicker"
         />
@@ -80,6 +82,9 @@
           </div>
           <div *ngIf="availablePlaces?.errors?.min">
             There must be at least 1 available place
+          </div>
+          <div *ngIf="availablePlaces?.errors?.wrongAvailablePlaces">
+            You can't set this field with value that smaller then current value
           </div></mat-error
         >
       </mat-form-field>

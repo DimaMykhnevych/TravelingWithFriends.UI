@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs/operators';
+import { DialogConstants } from 'src/app/core/constants/dialog-constants';
 import { IJourneyModel } from 'src/app/core/models/journey';
 import { ISearchJourneyModel } from 'src/app/core/models/search-journey';
 import { DialogService } from 'src/app/layout/confirm-dialog/serveices/dialog.service';
@@ -40,8 +41,8 @@ export class MyJourneysComponent implements OnInit {
   public onJourneyDelete(journeyId: number) {
     this._dialogService
       .openConfirmDialog({
-        title: 'Journey deleting',
-        content: `Are you sure you want to delete this journey?`,
+        title: DialogConstants.deleteJourneyDialogTitle,
+        content: DialogConstants.deleteJourneyDialogContent,
       })
       .afterClosed()
       .subscribe((res) => {

@@ -17,9 +17,14 @@ import { JourneysModule } from './features/journeys';
 import { UserInfoService } from './core/auth';
 import { loadUserInfo } from './core/app-initializers/load-user-info.initializer';
 import { ConfirmDialogComponent } from './layout/confirm-dialog/confirm-dialog.component';
+import { NotificationDialogComponent } from './layout/notification-dialog/notification-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, ConfirmDialogComponent],
+  declarations: [
+    AppComponent,
+    ConfirmDialogComponent,
+    NotificationDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

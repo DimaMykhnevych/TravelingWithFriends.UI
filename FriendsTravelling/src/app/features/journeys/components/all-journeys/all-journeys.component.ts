@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogConstants } from 'src/app/core/constants/dialog-constants';
 import { RequestStatuses } from 'src/app/core/enums/request-statuses';
 import { IAddJourneyRequestModel } from 'src/app/core/models/add-journey-request';
 import { IJourneyModel } from 'src/app/core/models/journey';
 import { ISearchJourneyModel } from 'src/app/core/models/search-journey';
 import { CurrentUserService } from 'src/app/core/permission/services';
+import { NotificationDialogService } from 'src/app/layout/notification-dialog/services/notification-dialog.service';
 import { JourneyRequestService } from '../../services/journey-request.service';
 import { JourneyService } from '../../services/journey.service';
 
@@ -22,6 +24,7 @@ export class AllJourneysComponent implements OnInit {
     private _journeyService: JourneyService,
     private _journeyRequestService: JourneyRequestService,
     private _currentUserService: CurrentUserService,
+    private _notificationDialogService: NotificationDialogService,
     private router: Router
   ) {
     this.searchParams = { isForCurrentUser: false };
@@ -47,9 +50,13 @@ export class AllJourneysComponent implements OnInit {
       organizerId: journey.organizerId,
       requestUserId: this._currentUserService.userInfo.userId,
     };
-    this._journeyRequestService
-      .addJourneyRequest(addRequestModel)
-      .subscribe((response) => {});
+    this._notificationDialogService.openNotificationDialog({
+      title: DialogConstants.joinJourneyDialogTitle,
+      content: DialogConstants.joinJourneyDialogContent,
+    });
+    // this._journeyRequestService
+    //   .addJourneyRequest(addRequestModel)
+    //   .subscribe((response) => {});
   }
 
   public onJourneySearch(searchParams: ISearchJourneyModel): void {

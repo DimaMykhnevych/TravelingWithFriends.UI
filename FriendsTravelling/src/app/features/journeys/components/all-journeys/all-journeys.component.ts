@@ -7,7 +7,7 @@ import { IJourneyModel } from 'src/app/core/models/journey';
 import { ISearchJourneyModel } from 'src/app/core/models/search-journey';
 import { CurrentUserService } from 'src/app/core/permission/services';
 import { NotificationDialogService } from 'src/app/layout/notification-dialog/services/notification-dialog.service';
-import { JourneyRequestService } from '../../services/journey-request.service';
+import { JourneyRequestService } from '../../../journey-request-response/services/journey-request.service';
 import { JourneyService } from '../../services/journey.service';
 
 @Component({
@@ -54,9 +54,9 @@ export class AllJourneysComponent implements OnInit {
       title: DialogConstants.joinJourneyDialogTitle,
       content: DialogConstants.joinJourneyDialogContent,
     });
-    // this._journeyRequestService
-    //   .addJourneyRequest(addRequestModel)
-    //   .subscribe((response) => {});
+    this._journeyRequestService
+      .addJourneyRequest(addRequestModel)
+      .subscribe((response) => {});
   }
 
   public onJourneySearch(searchParams: ISearchJourneyModel): void {

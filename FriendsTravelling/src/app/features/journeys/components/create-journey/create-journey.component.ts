@@ -4,7 +4,7 @@ import { isNil } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { IJourneyModel } from 'src/app/core/models/journey';
 import { ILocationModel } from 'src/app/core/models/location';
-import { JourneyRequestService } from '../../services/journey-request.service';
+import { JourneyRequestService } from '../../../journey-request-response/services/journey-request.service';
 import { JourneyService } from '../../services/journey.service';
 import { CreateJourneyFormComponent } from '../create-journey-form/create-journey-form.component';
 import { CreateRouteFormComponent } from '../create-route-form/create-route-form.component';

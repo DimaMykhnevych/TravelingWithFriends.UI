@@ -1,0 +1,26 @@
+.main {
+  .card {
+    margin: 10px;
+  }
+  .created-by-button {
+    color: blue;
+  }
+  .pending {
+    background-color: rgb(173, 218, 236);
+    .status {
+      color: rgb(66, 44, 209);
+    }
+  }
+  .canceled {
+    background-color: rgb(240, 131, 112);
+    .status {
+      color: rgb(107, 9, 9);
+    }
+  }
+  .accepted {
+    background-color: rgb(188, 228, 110);
+    .status {
+      color: green;
+    }
+  }
+}

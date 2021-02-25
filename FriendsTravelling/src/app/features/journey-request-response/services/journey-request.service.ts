@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IAddJourneyRequestModel } from 'src/app/core/models/add-journey-request';
 import { IJourneyRequestModel } from 'src/app/core/models/journey-request';
+import { IReviewJourneyRequestModel } from 'src/app/core/models/review-journey-request';
 import { AppSettings } from 'src/app/core/settings';
 
 @Injectable({
@@ -10,6 +11,14 @@ import { AppSettings } from 'src/app/core/settings';
 })
 export class JourneyRequestService {
   constructor(private _http: HttpClient) {}
+
+  public getUserRequestsWithJourneys(
+    userId: number
+  ): Observable<IReviewJourneyRequestModel[]> {
+    return this._http.get<IReviewJourneyRequestModel[]>(
+      `${AppSettings.apiHost}/journeyRequest/requestsWithJourneys/${userId}`
+    );
+  }
 
   public getRequestByJourneyId(
     journeyId: number

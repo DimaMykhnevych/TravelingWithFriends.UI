@@ -1,0 +1,16 @@
+<ng-scrollbar track="all" pointerEventsMethod="scrollbar">
+  <div class="main">
+    <div class="content container">
+      <h2 class="text-center">My Requests</h2>
+      <div *ngIf="isLoading">
+        <app-spinner></app-spinner>
+      </div>
+      <div *ngIf="userRequests.length === 0 && !isLoading">
+        <h3 class="text-center info-heading">
+          You have not made any request to join the journey yet
+        </h3>
+      </div>
+      <app-requests-list [requests]="userRequests"></app-requests-list>
+    </div>
+  </div>
+</ng-scrollbar>

@@ -1,0 +1,51 @@
+<div class="main">
+  <mat-card class="card" [class]="defineCardClass()">
+    <mat-card-header>
+      <mat-card-title
+        >{{ request.journey.route.routeLocations[0].location.name }} Journey ({{
+          request.journey.startDate | date
+        }})</mat-card-title
+      >
+      <mat-card-subtitle
+        >{{ "created_by" | translate }}:
+        <button
+          class="created-by-button"
+          mat-button
+          (click)="onUserNameClick($event)"
+        >
+          {{ request.organizer.userName }}
+        </button></mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <h5 class="text-center">
+        Status:
+        <span class="status">{{
+          getRequestStatusString(request.journeyRequestStatus)
+        }}</span>
+      </h5>
+      <hr />
+      <p>{{ request.journey.description }}</p>
+      <div>
+        <p><b>Route</b></p>
+        <span
+          *ngFor="let routeLocation of request.journey.route.routeLocations"
+        >
+          {{ routeLocation.location.name }}({{
+            routeLocation.location.country
+          }})
+          <i class="fas fa-arrow-right"></i>
+        </span>
+        <i class="fas fa-home ml-1"></i>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">
+        {{ "details" | translate }}
+      </button>
+      <button mat-raised-button color="warn">
+        {{ "discard" | translate }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

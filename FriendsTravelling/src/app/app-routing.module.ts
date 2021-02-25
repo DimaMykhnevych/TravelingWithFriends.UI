@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core/auth';
 import { HomeComponent } from './features/home';
+import { UserRequestsComponent } from './features/journey-request-response/components/user-requests/user-requests.component';
 import { AllJourneysComponent } from './features/journeys/components/all-journeys/all-journeys.component';
 import { MyJourneysComponent } from './features/journeys/components/my-journeys/my-journeys.component';
 import { JourneysComponent } from './features/journeys/journeys.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'myJourneys', component: MyJourneysComponent },
       { path: 'allJourneys', component: AllJourneysComponent },
       { path: 'user', component: UserProfileComponent },
+      { path: 'requests', component: UserRequestsComponent },
     ],
   },
 ];

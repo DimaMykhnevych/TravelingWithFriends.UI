@@ -1,0 +1,18 @@
+.main {
+  padding-top: 100px;
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../../../../assets/images/request-background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  .content {
+    background-color: rgba(235, 178, 220, 0.356);
+    border-radius: 15px;
+    // height: 80vh;
+    padding: 15px;
+    .info-heading {
+      color: white;
+    }
+  }
+}

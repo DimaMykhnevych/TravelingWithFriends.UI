@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs/operators';
 import { DialogConstants } from 'src/app/core/constants/dialog-constants';
 import { IReviewJourneyRequestModel } from 'src/app/core/models/review-journey-request';
 import { CurrentUserService } from 'src/app/core/permission/services';
-import { DialogService } from 'src/app/layout/dialogs/confirm-dialog/serveices/dialog.service';
-import { JourneyDetailsDialogComponent } from 'src/app/layout/dialogs/journey-details-dialog/journey-details-dialog.component';
+import { DialogService } from 'src/app/layout/dialogs/serveices/dialog.service';
 import { JourneyRequestService } from '../../services/journey-request.service';
 
 @Component({
@@ -20,9 +18,8 @@ export class UserRequestsComponent implements OnInit {
   constructor(
     private _journeyRequestService: JourneyRequestService,
     private _currentUserService: CurrentUserService,
-    private _confirmDialogService: DialogService,
-    private _toastr: ToastrService,
-    public dialog: MatDialog
+    private _dialogService: DialogService,
+    private _toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +31,7 @@ export class UserRequestsComponent implements OnInit {
   }
 
   public onRequestDiscard(requestId: number): void {
-    this._confirmDialogService
+    this._dialogService
       .openConfirmDialog({
         title: DialogConstants.deleteRequestDialogTitle,
         content: DialogConstants.deleteRequestDialogContent,
@@ -61,12 +58,10 @@ export class UserRequestsComponent implements OnInit {
   }
 
   private openDialog(journeyId: number): void {
-    this.dialog.open(JourneyDetailsDialogComponent, {
-      data: {
-        journey: this.userRequests.filter((r) => r.journey.id === journeyId)[0]
-          .journey,
-      },
-    });
+    const journey = this.userRequests.filter(
+      (r) => r.journey.id === journeyId
+    )[0].journey;
+    this._dialogService.openJourneyDetailsDialog(journey);
   }
 
   private getUserRequestsByUserId(userId: number): void {

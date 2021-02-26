@@ -6,7 +6,7 @@ import { IAddJourneyRequestModel } from 'src/app/core/models/add-journey-request
 import { IJourneyModel } from 'src/app/core/models/journey';
 import { ISearchJourneyModel } from 'src/app/core/models/search-journey';
 import { CurrentUserService } from 'src/app/core/permission/services';
-import { NotificationDialogService } from 'src/app/layout/dialogs/notification-dialog/services/notification-dialog.service';
+import { DialogService } from 'src/app/layout/dialogs/serveices/dialog.service';
 import { JourneyRequestService } from '../../../journey-request-response/services/journey-request.service';
 import { JourneyService } from '../../services/journey.service';
 
@@ -24,7 +24,7 @@ export class AllJourneysComponent implements OnInit {
     private _journeyService: JourneyService,
     private _journeyRequestService: JourneyRequestService,
     private _currentUserService: CurrentUserService,
-    private _notificationDialogService: NotificationDialogService,
+    private _dialogService: DialogService,
     private router: Router
   ) {
     this.searchParams = { isForCurrentUser: false };
@@ -71,7 +71,7 @@ export class AllJourneysComponent implements OnInit {
   }
 
   private showDialog(): void {
-    this._notificationDialogService.openNotificationDialog({
+    this._dialogService.openNotificationDialog({
       title: DialogConstants.joinJourneyDialogTitle,
       content: DialogConstants.joinJourneyDialogContent,
     });

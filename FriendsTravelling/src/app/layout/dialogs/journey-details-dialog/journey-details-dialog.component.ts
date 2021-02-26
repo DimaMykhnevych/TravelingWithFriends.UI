@@ -9,11 +9,8 @@ import { IJourneyModel } from 'src/app/core/models/journey';
 })
 export class JourneyDetailsDialogComponent implements OnInit {
   public journey: IJourneyModel;
-  constructor(
-    public dialogRef: MatDialogRef<JourneyDetailsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { journey: IJourneyModel }
-  ) {
-    this.journey = data.journey;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: IJourneyModel) {
+    this.journey = data;
   }
 
   ngOnInit(): void {}

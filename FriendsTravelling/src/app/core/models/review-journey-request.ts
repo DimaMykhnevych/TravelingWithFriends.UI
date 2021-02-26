@@ -10,4 +10,5 @@ export interface IReviewJourneyRequestModel {
   requestUserId: number;
   journey: IJourneyModel;
   organizer: IAppUserModel;
+  requestUser: IAppUserModel;
 }

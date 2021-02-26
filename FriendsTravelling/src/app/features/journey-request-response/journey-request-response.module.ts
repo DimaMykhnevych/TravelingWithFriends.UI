@@ -9,12 +9,14 @@ import { UserRequestsComponent } from './components/user-requests/user-requests.
 import { RequestsListComponent } from './components/requests-list/requests-list.component';
 import { RequestListItemComponent } from './components/request-list-item/request-list-item.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { UserInboxRequestsComponent } from './components/user-inbox-requests/user-inbox-requests.component';
 
 @NgModule({
   declarations: [
     UserRequestsComponent,
     RequestsListComponent,
     RequestListItemComponent,
+    UserInboxRequestsComponent,
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,17 @@
           request.journey.startDate | date
         }})</mat-card-title
       >
-      <mat-card-subtitle
+      <mat-card-subtitle *ngIf="isInboxRequest">
+        {{ "requested_by" | translate }}:
+        <button
+          class="created-by-button"
+          mat-button
+          (click)="onUserNameClick($event)"
+        >
+          {{ request.requestUser.userName }}
+        </button>
+      </mat-card-subtitle>
+      <mat-card-subtitle *ngIf="!isInboxRequest"
         >{{ "created_by" | translate }}:
         <button
           class="created-by-button"
@@ -43,9 +53,26 @@
       <button mat-raised-button color="primary" (click)="onDetailsBtnClick()">
         {{ "details" | translate }}
       </button>
-      <button mat-raised-button color="warn" (click)="onDiscardBtnClick()">
+      <button
+        *ngIf="!isInboxRequest"
+        mat-raised-button
+        color="warn"
+        (click)="onDiscardBtnClick()"
+      >
         {{ "discard" | translate }}
       </button>
+      <span class="ml-2" *ngIf="isInboxRequest">
+        <button
+          (click)="onAcceptRequest()"
+          mat-raised-button
+          class="accept-btn"
+        >
+          {{ "accept" | translate }}
+        </button>
+        <button (click)="onDeclineRequest()" mat-raised-button color="warn">
+          {{ "decline" | translate }}
+        </button>
+      </span>
     </mat-card-actions>
   </mat-card>
 </div>

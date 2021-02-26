@@ -1,20 +1,21 @@
 <ng-scrollbar track="all" pointerEventsMethod="scrollbar">
   <div class="main">
     <div class="content container">
-      <h2 class="text-center">{{ "requests.my_requests" | translate }}</h2>
+      <h2 class="text-center">Inbox Requests</h2>
       <div *ngIf="isLoading">
         <app-spinner></app-spinner>
       </div>
-      <div *ngIf="userRequests.length === 0 && !isLoading">
+      <div *ngIf="userInboxRequests.length === 0 && !isLoading">
         <h3 class="text-center info-heading">
-          {{ "requests.my_requests_empty" | translate }}
+          {{ "requests.inbox_requests_empty" | translate }}
         </h3>
       </div>
       <app-requests-list
-        [requests]="userRequests"
-        [isInboxRequest]="false"
+        [requests]="userInboxRequests"
+        [isInboxRequest]="true"
         (detailsClicked)="onJourneyDetailsClick($event)"
-        (onRequestDiscard)="onRequestDiscard($event)"
+        (onRequestAccept)="onRequestAccept($event)"
+        (onRequestDecline)="onRequestDecline($event)"
       ></app-requests-list>
     </div>
   </div>

@@ -35,7 +35,15 @@
     "min_age": "You must be at least 18 years old!"
   },
   "created_by": "Created by",
+  "requested_by": "Requested by",
   "discard": "Discard",
   "details": "Details",
-  "close": "Close"
+  "close": "Close",
+  "accept": "Accept",
+  "decline": "Decline",
+  "requests": {
+    "my_requests": "My Requests",
+    "my_requests_empty": "You have not made any request to join the journey yet",
+    "inbox_requests_empty": "You haven't had any request to your journeys yet"
+  }
 }

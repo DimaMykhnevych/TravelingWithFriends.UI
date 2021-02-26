@@ -47,13 +47,23 @@
           >All journeys</a
         >
       </li>
-      <li class="nav-item">
+      <li class="nav-item dropdown" routerLinkActive="active current">
         <a
-          class="nav-link"
-          routerLink="/profile/requests"
-          routerLinkActive="active current"
-          >My Requests</a
+          class="nav-link dropdown-toggle"
+          id="requestDropdown"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Requests</a
         >
+        <div class="dropdown-menu" aria-labelledby="requestDropdown">
+          <a class="dropdown-item" routerLink="/profile/requests"
+            >My Requests</a
+          >
+          <a class="dropdown-item" routerLink="/profile/inbox-requests"
+            >Inbox Requests</a
+          >
+        </div>
       </li>
     </ul>
     <ul class="navbar-nav">

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core/auth';
-import { HomeComponent } from './features/home';
-import { UserRequestsComponent } from './features/journey-request-response/components/user-requests/user-requests.component';
-import { AllJourneysComponent } from './features/journeys/components/all-journeys/all-journeys.component';
-import { MyJourneysComponent } from './features/journeys/components/my-journeys/my-journeys.component';
+import {
+  UserInboxRequestsComponent,
+  UserRequestsComponent,
+} from './features/journey-request-response/components';
+import { AllJourneysComponent, MyJourneysComponent } from './features/journeys';
 import { JourneysComponent } from './features/journeys/journeys.component';
-import { UserProfileComponent } from './features/personal-page/components/user-profile/user-profile.component';
+import { UserProfileComponent } from './features/personal-page';
 import { PersonalPageComponent } from './features/personal-page/personal-page.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'allJourneys', component: AllJourneysComponent },
       { path: 'user', component: UserProfileComponent },
       { path: 'requests', component: UserRequestsComponent },
+      { path: 'inbox-requests', component: UserInboxRequestsComponent },
     ],
   },
 ];

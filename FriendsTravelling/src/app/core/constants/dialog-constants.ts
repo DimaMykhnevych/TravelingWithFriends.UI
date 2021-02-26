@@ -9,4 +9,10 @@ export class DialogConstants {
   public static deleteRequestDialogTitle = 'Request discarding';
   public static deleteRequestDialogContent =
     'Are you sure you want to discard this request?';
+  public static declineRequestTitle = 'Request declining';
+  public static declineRequestContent =
+    'Are you sure you want to decline this request?';
+  public static acceptRequestTitle = 'Request accepting';
+  public static acceptRequestContent =
+    'Are you sure you want to accept this request?';
 }

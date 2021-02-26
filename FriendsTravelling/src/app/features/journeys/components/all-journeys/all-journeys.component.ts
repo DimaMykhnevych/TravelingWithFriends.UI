@@ -6,7 +6,7 @@ import { IAddJourneyRequestModel } from 'src/app/core/models/add-journey-request
 import { IJourneyModel } from 'src/app/core/models/journey';
 import { ISearchJourneyModel } from 'src/app/core/models/search-journey';
 import { CurrentUserService } from 'src/app/core/permission/services';
-import { NotificationDialogService } from 'src/app/layout/notification-dialog/services/notification-dialog.service';
+import { NotificationDialogService } from 'src/app/layout/dialogs/notification-dialog/services/notification-dialog.service';
 import { JourneyRequestService } from '../../../journey-request-response/services/journey-request.service';
 import { JourneyService } from '../../services/journey.service';
 

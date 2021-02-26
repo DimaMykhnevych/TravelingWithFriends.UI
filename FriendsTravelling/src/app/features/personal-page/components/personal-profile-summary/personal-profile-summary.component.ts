@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { isNil } from 'lodash';
 import { IAppUserModel } from 'src/app/core/models/app-user';
 import { AppSettings } from 'src/app/core/settings';
-import { ChangeProfileDialogComponent } from 'src/app/layout/change-profile-dialog/change-profile-dialog.component';
-import { IDialogResult } from 'src/app/layout/change-profile-dialog/models/dialog-result.model';
+import { ChangeProfileDialogComponent } from 'src/app/layout/dialogs/change-profile-dialog/change-profile-dialog.component';
+import { IDialogResult } from 'src/app/layout/dialogs/change-profile-dialog/models/dialog-result.model';
 
 @Component({
   selector: 'app-personal-profile-summary',

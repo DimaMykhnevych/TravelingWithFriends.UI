@@ -5,8 +5,8 @@ import { filter } from 'rxjs/operators';
 import { DialogConstants } from 'src/app/core/constants/dialog-constants';
 import { IReviewJourneyRequestModel } from 'src/app/core/models/review-journey-request';
 import { CurrentUserService } from 'src/app/core/permission/services';
-import { DialogService } from 'src/app/layout/confirm-dialog/serveices/dialog.service';
-import { JourneyDetailsDialogComponent } from 'src/app/layout/journey-details-dialog/journey-details-dialog.component';
+import { DialogService } from 'src/app/layout/dialogs/confirm-dialog/serveices/dialog.service';
+import { JourneyDetailsDialogComponent } from 'src/app/layout/dialogs/journey-details-dialog/journey-details-dialog.component';
 import { JourneyRequestService } from '../../services/journey-request.service';
 
 @Component({

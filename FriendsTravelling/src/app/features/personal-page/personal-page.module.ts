@@ -5,7 +5,7 @@ import { CoreModule } from '../../core/core.module';
 import { NavbarModule } from 'src/app/layout/navbar';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/layout/material';
-import { ChangeProfileDialogModule } from 'src/app/layout/change-profile-dialog';
+import { ChangeProfileDialogModule } from 'src/app/layout/dialogs/change-profile-dialog';
 import { UserProfileService } from './services/user-profile.service';
 import { PersonalProfileSummaryComponent } from './components/personal-profile-summary/personal-profile-summary.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';

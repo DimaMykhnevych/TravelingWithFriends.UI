@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth';
 import { MatDialog } from '@angular/material/dialog';
-import { IProfileUpdate } from 'src/app/layout/change-profile-dialog/models/profile-update.model';
+import { IProfileUpdate } from 'src/app/layout/dialogs/change-profile-dialog/models/profile-update.model';
 import { UserProfileService } from './services/user-profile.service';
 import { isNil } from 'lodash';
 import { Router } from '@angular/router';
-import { IDialogResult } from 'src/app/layout/change-profile-dialog/models/dialog-result.model';
+import { IDialogResult } from 'src/app/layout/dialogs/change-profile-dialog/models/dialog-result.model';
 import { IAppUserModel } from 'src/app/core/models/app-user';
 
 @Component({

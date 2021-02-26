@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import { DialogConstants } from 'src/app/core/constants/dialog-constants';
 import { IJourneyModel } from 'src/app/core/models/journey';
 import { ISearchJourneyModel } from 'src/app/core/models/search-journey';
-import { DialogService } from 'src/app/layout/confirm-dialog/serveices/dialog.service';
+import { DialogService } from 'src/app/layout/dialogs/confirm-dialog/serveices/dialog.service';
 import { MyJourneysService } from '../../services/my-journeys.service';
 
 @Component({

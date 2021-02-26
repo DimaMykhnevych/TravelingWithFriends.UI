@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppSettings } from '../../../core/settings';
+import { AppSettings } from '../../../../core/settings';
 import { IImage } from '../models/image.model';
 
 @Injectable({

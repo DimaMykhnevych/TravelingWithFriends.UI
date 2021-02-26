@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IAppUserModel } from 'src/app/core/models/app-user';
-import { IProfileUpdate } from 'src/app/layout/change-profile-dialog/models/profile-update.model';
+import { IProfileUpdate } from 'src/app/layout/dialogs/change-profile-dialog/models/profile-update.model';
 import { AppSettings } from '../../../core/settings';
 
 @Injectable({

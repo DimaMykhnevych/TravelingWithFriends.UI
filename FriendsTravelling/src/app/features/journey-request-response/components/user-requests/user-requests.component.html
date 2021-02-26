@@ -10,7 +10,11 @@
           You have not made any request to join the journey yet
         </h3>
       </div>
-      <app-requests-list [requests]="userRequests"></app-requests-list>
+      <app-requests-list
+        [requests]="userRequests"
+        (detailsClicked)="onJourneyDetailsClick($event)"
+        (onRequestDiscard)="onRequestDiscard($event)"
+      ></app-requests-list>
     </div>
   </div>
 </ng-scrollbar>

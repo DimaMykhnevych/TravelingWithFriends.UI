@@ -43,5 +43,6 @@ import { SearchJourneyFormContainerComponent } from './components/search-journey
     RouterModule,
   ],
   providers: [LocationService, MyJourneysService],
+  exports: [JourneyListItemComponent],
 })
 export class JourneysModule {}

@@ -6,4 +6,7 @@ export class DialogConstants {
   public static deleteJourneyDialogTitle = 'Journey deleting';
   public static deleteJourneyDialogContent =
     'Are you sure you want to delete this journey?';
+  public static deleteRequestDialogTitle = 'Request discarding';
+  public static deleteRequestDialogContent =
+    'Are you sure you want to discard this request?';
 }

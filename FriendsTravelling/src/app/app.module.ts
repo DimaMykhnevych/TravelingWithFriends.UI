@@ -19,12 +19,14 @@ import { JourneysModule } from './features/journeys';
 import { ConfirmDialogComponent } from './layout/confirm-dialog/confirm-dialog.component';
 import { NotificationDialogComponent } from './layout/notification-dialog/notification-dialog.component';
 import { JourneyRequestResponseModule } from './features/journey-request-response';
+import { JourneyDetailsDialogComponent } from './layout/journey-details-dialog/journey-details-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConfirmDialogComponent,
     NotificationDialogComponent,
+    JourneyDetailsDialogComponent,
   ],
   imports: [
     BrowserModule,

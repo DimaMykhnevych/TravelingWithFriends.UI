@@ -5,14 +5,16 @@
         >{{ journey.route.routeLocations[0].location.name }} Journey ({{
           journey.startDate | date
         }})
-        <img
-          width="40"
-          height="40"
-          class="rounded-circle profile-image"
-          [src]="createImgPath()"
-        />
+        <div *ngIf="!isJourneyRequestReviewed">
+          <img
+            width="40"
+            height="40"
+            class="rounded-circle profile-image"
+            [src]="createImgPath()"
+          />
+        </div>
       </mat-card-title>
-      <mat-card-subtitle>
+      <mat-card-subtitle *ngIf="!isJourneyRequestReviewed">
         <span
           >Created By:
           <button
@@ -96,7 +98,7 @@
         </button>
       </mat-card-actions>
     </div>
-    <div *ngIf="!isEditable">
+    <div *ngIf="!isEditable && !isJourneyRequestReviewed">
       <button
         mat-raised-button
         color="primary"

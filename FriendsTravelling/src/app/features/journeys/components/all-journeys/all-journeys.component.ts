@@ -50,13 +50,7 @@ export class AllJourneysComponent implements OnInit {
       organizerId: journey.organizerId,
       requestUserId: this._currentUserService.userInfo.userId,
     };
-    this._notificationDialogService.openNotificationDialog({
-      title: DialogConstants.joinJourneyDialogTitle,
-      content: DialogConstants.joinJourneyDialogContent,
-    });
-    this._journeyRequestService
-      .addJourneyRequest(addRequestModel)
-      .subscribe((response) => {});
+    this.addJourneyRequest(addRequestModel);
   }
 
   public onJourneySearch(searchParams: ISearchJourneyModel): void {
@@ -64,6 +58,23 @@ export class AllJourneysComponent implements OnInit {
     this.searchParams.isForCurrentUser = false;
     this.isSearching = true;
     this.getUserJourneys();
+  }
+
+  private addJourneyRequest(request: IAddJourneyRequestModel): void {
+    this._journeyRequestService
+      .addJourneyRequest(request)
+      .subscribe((response) => {
+        if (response) {
+          this.showDialog();
+        }
+      });
+  }
+
+  private showDialog(): void {
+    this._notificationDialogService.openNotificationDialog({
+      title: DialogConstants.joinJourneyDialogTitle,
+      content: DialogConstants.joinJourneyDialogContent,
+    });
   }
 
   private getUserJourneys(): void {

@@ -40,10 +40,10 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary">
+      <button mat-raised-button color="primary" (click)="onDetailsBtnClick()">
         {{ "details" | translate }}
       </button>
-      <button mat-raised-button color="warn">
+      <button mat-raised-button color="warn" (click)="onDiscardBtnClick()">
         {{ "discard" | translate }}
       </button>
     </mat-card-actions>

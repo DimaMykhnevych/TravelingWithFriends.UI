@@ -11,6 +11,7 @@ import { AppSettings } from 'src/app/core/settings';
 export class JourneyListItemComponent implements OnInit {
   @Input() public journey: IJourneyModel;
   @Input() public isEditable: boolean;
+  @Input() public isJourneyRequestReviewed: boolean;
   @Output()
   public delete: EventEmitter<number> = new EventEmitter<number>();
   @Output()

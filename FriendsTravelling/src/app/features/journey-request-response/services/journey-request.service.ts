@@ -36,4 +36,10 @@ export class JourneyRequestService {
       request
     );
   }
+
+  public deleteJourneyRequest(requestId: number): Observable<boolean> {
+    return this._http.delete<boolean>(
+      `${AppSettings.apiHost}/journeyRequest/${requestId}`
+    );
+  }
 }

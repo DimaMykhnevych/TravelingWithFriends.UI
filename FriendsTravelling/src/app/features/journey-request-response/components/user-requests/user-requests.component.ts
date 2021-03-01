@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { DialogConstants } from 'src/app/core/constants/dialog-constants';
+import { JourneyRequestsService } from 'src/app/core/journey-requests/journey-requests.service';
 import { IReviewJourneyRequestModel } from 'src/app/core/models/review-journey-request';
 import { CurrentUserService } from 'src/app/core/permission/services';
 import { DialogService } from 'src/app/layout/dialogs/serveices/dialog.service';
@@ -19,11 +21,16 @@ export class UserRequestsComponent implements OnInit {
     private _journeyRequestService: JourneyRequestService,
     private _currentUserService: CurrentUserService,
     private _dialogService: DialogService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _journeyRequestsHub: JourneyRequestsService
   ) {}
 
   ngOnInit(): void {
-    this.getUserRequests();
+    this.getUserRequests().subscribe();
+    this._journeyRequestsHub
+      .onRequestUpdate()
+      .pipe(switchMap((x) => this.getUserRequests()))
+      .subscribe();
   }
 
   public onJourneyDetailsClick(journeyId: number): void {
@@ -44,7 +51,7 @@ export class UserRequestsComponent implements OnInit {
       });
   }
 
-  private deleteRequest(requestId: number): void {
+  private deleteRequest(requestId: number) {
     this._journeyRequestService
       .deleteJourneyRequest(requestId)
       .pipe(filter(Boolean))
@@ -64,23 +71,24 @@ export class UserRequestsComponent implements OnInit {
     this._dialogService.openJourneyDetailsDialog(journey);
   }
 
-  private getUserRequestsByUserId(userId: number): void {
-    this._journeyRequestService
-      .getUserRequestsWithJourneys(userId)
-      .subscribe((resp) => {
+  private getUserRequestsByUserId(
+    userId: number
+  ): Observable<IReviewJourneyRequestModel[]> {
+    return this._journeyRequestService.getUserRequestsWithJourneys(userId).pipe(
+      tap((resp) => {
         this.userRequests = resp;
         this.isLoading = false;
-      });
+      })
+    );
   }
 
-  private getUserRequests(): void {
+  private getUserRequests(): Observable<IReviewJourneyRequestModel[]> {
     const currentUserInfo = this._currentUserService.userInfo;
     if (currentUserInfo.userId != undefined) {
-      this.getUserRequestsByUserId(currentUserInfo.userId);
-      return;
+      return this.getUserRequestsByUserId(currentUserInfo.userId);
     }
-    this._currentUserService.userInfoChanged.subscribe((resp) =>
-      this.getUserRequestsByUserId(resp.userId)
+    return this._currentUserService.userInfoChanged.pipe(
+      switchMap((resp) => this.getUserRequestsByUserId(resp.userId))
     );
   }
 }

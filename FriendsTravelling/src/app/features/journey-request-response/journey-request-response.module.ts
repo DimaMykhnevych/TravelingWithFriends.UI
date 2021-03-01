@@ -10,6 +10,8 @@ import { RequestsListComponent } from './components/requests-list/requests-list.
 import { RequestListItemComponent } from './components/request-list-item/request-list-item.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserInboxRequestsComponent } from './components/user-inbox-requests/user-inbox-requests.component';
+import { CoreModule } from 'src/app/core/core.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { UserInboxRequestsComponent } from './components/user-inbox-requests/use
     SpinnerModule,
     RouterModule,
     TranslateModule,
+    CoreModule,
+    HttpClientModule,
   ],
 })
 export class JourneyRequestResponseModule {}

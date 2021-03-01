@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, pipe } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { DialogConstants } from 'src/app/core/constants/dialog-constants';
 import { RequestStatuses } from 'src/app/core/enums/request-statuses';
+import { JourneyRequestsService } from 'src/app/core/journey-requests/journey-requests.service';
 import { IChangeRequestStatusModel } from 'src/app/core/models/change-request-status';
 import { IReviewJourneyRequestModel } from 'src/app/core/models/review-journey-request';
 import { CurrentUserService } from 'src/app/core/permission/services';
@@ -18,11 +21,16 @@ export class UserInboxRequestsComponent implements OnInit {
   constructor(
     private _journeyRequestService: JourneyRequestService,
     private _currentUserService: CurrentUserService,
-    private _dialogService: DialogService
+    private _dialogService: DialogService,
+    private _journeyRequestsHub: JourneyRequestsService
   ) {}
 
   ngOnInit(): void {
-    this.getUserInboxRequests();
+    this.getUserInboxRequests().subscribe();
+    this._journeyRequestsHub
+      .onRequestUpdate()
+      .pipe(switchMap((x) => this.getUserInboxRequests()))
+      .subscribe();
   }
 
   public onJourneyDetailsClick(journeyId: number): void {
@@ -68,11 +76,11 @@ export class UserInboxRequestsComponent implements OnInit {
   private changeRequestStatus(status: IChangeRequestStatusModel): void {
     this._journeyRequestService
       .updateRequestStatus(status)
-      .subscribe((response) => {
-        if (response) {
-          this.getUserInboxRequests();
-        }
-      });
+      .pipe(
+        filter(Boolean),
+        map((x) => this.getUserInboxRequests())
+      )
+      .subscribe();
   }
 
   private openDialog(journeyId: number): void {
@@ -82,23 +90,24 @@ export class UserInboxRequestsComponent implements OnInit {
     this._dialogService.openJourneyDetailsDialog(journey);
   }
 
-  private getUserInboxRequestsByUserId(userId: number): void {
-    this._journeyRequestService
-      .getUserInboxRequests(userId)
-      .subscribe((resp) => {
+  private getUserInboxRequestsByUserId(
+    userId: number
+  ): Observable<IReviewJourneyRequestModel[]> {
+    return this._journeyRequestService.getUserInboxRequests(userId).pipe(
+      tap((resp) => {
         this.userInboxRequests = resp;
         this.isLoading = false;
-      });
+      })
+    );
   }
 
-  private getUserInboxRequests(): void {
+  private getUserInboxRequests(): Observable<IReviewJourneyRequestModel[]> {
     const currentUserInfo = this._currentUserService.userInfo;
-    if (currentUserInfo.userId != undefined) {
-      this.getUserInboxRequestsByUserId(currentUserInfo.userId);
-      return;
+    if (currentUserInfo.userId) {
+      return this.getUserInboxRequestsByUserId(currentUserInfo.userId);
     }
-    this._currentUserService.userInfoChanged.subscribe((resp) =>
-      this.getUserInboxRequestsByUserId(resp.userId)
+    return this._currentUserService.userInfoChanged.pipe(
+      switchMap((resp) => this.getUserInboxRequestsByUserId(resp.userId))
     );
   }
 }

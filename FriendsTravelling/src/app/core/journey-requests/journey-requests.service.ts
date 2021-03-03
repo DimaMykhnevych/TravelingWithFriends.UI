@@ -40,6 +40,9 @@ export class JourneyRequestsService {
   public onRequestUpdate(): Observable<string> {
     return this.requestsReceived.asObservable();
   }
+  public disconnect() {
+    this._hubConnection.stop();
+  }
 
   private registerOnServerEvents(): void {
     this._hubConnection.on('requestsChanged', (data) => {

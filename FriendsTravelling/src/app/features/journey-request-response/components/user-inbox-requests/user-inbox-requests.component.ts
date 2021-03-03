@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, pipe } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { DialogConstants } from 'src/app/core/constants/dialog-constants';
 import { RequestStatuses } from 'src/app/core/enums/request-statuses';
 import { JourneyRequestsService } from 'src/app/core/journey-requests/journey-requests.service';
@@ -15,9 +15,11 @@ import { JourneyRequestService } from '../../services/journey-request.service';
   templateUrl: './user-inbox-requests.component.html',
   styleUrls: ['./user-inbox-requests.component.scss'],
 })
-export class UserInboxRequestsComponent implements OnInit {
+export class UserInboxRequestsComponent implements OnInit, OnDestroy {
   public userInboxRequests: IReviewJourneyRequestModel[] = [];
   public isLoading: boolean = true;
+  private _hubSubscription: Subscription;
+
   constructor(
     private _journeyRequestService: JourneyRequestService,
     private _currentUserService: CurrentUserService,
@@ -27,10 +29,14 @@ export class UserInboxRequestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserInboxRequests().subscribe();
-    this._journeyRequestsHub
+    this._hubSubscription = this._journeyRequestsHub
       .onRequestUpdate()
       .pipe(switchMap((x) => this.getUserInboxRequests()))
       .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this._hubSubscription.unsubscribe();
   }
 
   public onJourneyDetailsClick(journeyId: number): void {
@@ -78,7 +84,7 @@ export class UserInboxRequestsComponent implements OnInit {
       .updateRequestStatus(status)
       .pipe(
         filter(Boolean),
-        map((x) => this.getUserInboxRequests())
+        switchMap((x) => this.getUserInboxRequests())
       )
       .subscribe();
   }

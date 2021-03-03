@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { DialogConstants } from 'src/app/core/constants/dialog-constants';
 import { JourneyRequestsService } from 'src/app/core/journey-requests/journey-requests.service';
@@ -14,9 +14,10 @@ import { JourneyRequestService } from '../../services/journey-request.service';
   templateUrl: './user-requests.component.html',
   styleUrls: ['./user-requests.component.scss'],
 })
-export class UserRequestsComponent implements OnInit {
+export class UserRequestsComponent implements OnInit, OnDestroy {
   public userRequests: IReviewJourneyRequestModel[] = [];
   public isLoading: boolean = true;
+  private _hubSubscription: Subscription;
   constructor(
     private _journeyRequestService: JourneyRequestService,
     private _currentUserService: CurrentUserService,
@@ -27,10 +28,14 @@ export class UserRequestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserRequests().subscribe();
-    this._journeyRequestsHub
+    this._hubSubscription = this._journeyRequestsHub
       .onRequestUpdate()
       .pipe(switchMap((x) => this.getUserRequests()))
       .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this._hubSubscription.unsubscribe();
   }
 
   public onJourneyDetailsClick(journeyId: number): void {

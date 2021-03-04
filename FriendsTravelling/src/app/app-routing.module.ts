@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core/auth';
+import { ReviewRouteComponent } from './features/google-maps/components/review-route/review-route.component';
 import {
   UserInboxRequestsComponent,
   UserRequestsComponent,
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'user', component: UserProfileComponent },
       { path: 'requests', component: UserRequestsComponent },
       { path: 'inbox-requests', component: UserInboxRequestsComponent },
+      { path: 'review-route', component: ReviewRouteComponent },
     ],
   },
 ];

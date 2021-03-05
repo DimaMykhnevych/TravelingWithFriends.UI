@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from './layout/material';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
@@ -23,9 +23,8 @@ import {
   NotificationDialogComponent,
 } from './layout/dialogs';
 import { GoogleMapsModule } from './features/google-maps/google-maps.module';
-import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
-import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,9 +47,6 @@ import { environment } from '../environments/environment';
     JourneyRequestResponseModule,
     GoogleMapsModule,
     AgmDirectionModule,
-    AgmCoreModule.forRoot({
-      apiKey: environment.API_KEY,
-    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

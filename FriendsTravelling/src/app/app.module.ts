@@ -25,6 +25,7 @@ import {
 import { GoogleMapsModule } from './features/google-maps/google-maps.module';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,7 @@ import { AgmDirectionModule } from 'agm-direction';
     GoogleMapsModule,
     AgmDirectionModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCQ5rQGHhmS6a-IdHljmTLXELG-P6_1QiA',
+      apiKey: environment.API_KEY,
     }),
     TranslateModule.forRoot({
       loader: {

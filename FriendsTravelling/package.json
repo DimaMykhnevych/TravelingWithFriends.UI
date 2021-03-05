@@ -28,6 +28,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "agm-direction": "^0.8.8",
+    "dotenv": "^8.2.0",
     "lodash": "^4.17.20",
     "ngx-scrollbar": "^7.5.4",
     "ngx-toastr": "^13.2.0",

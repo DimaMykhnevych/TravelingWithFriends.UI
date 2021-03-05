@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GoogleMapsAPIWrapper } from '@agm/core';
-export interface ILatLng {
-  latitude: number;
-  longitude: number;
-}
+
+declare var H: any;
+
 @Component({
   selector: 'app-review-route',
   templateUrl: './review-route.component.html',
@@ -11,58 +10,48 @@ export interface ILatLng {
   providers: [GoogleMapsAPIWrapper],
 })
 export class ReviewRouteComponent implements OnInit {
-  private directionsRenderer: any;
-  // origin: ILatLng = {
-  //   latitude: 38.889931,
-  //   longitude: -77.009003,
-  // };
-  // // New York City, NY, USA
-  // destination: ILatLng = {
-  //   latitude: 40.73061,
-  //   longitude: -73.935242,
-  // };
-  origin = { lat: 24.799448, lng: 120.979021 };
-  destination = { lat: 24.799524, lng: 120.975017 };
-  constructor(private gmapsApi: GoogleMapsAPIWrapper) {}
-  ngOnInit(): void {
-    this.drawDirectionsRoute();
-  }
-  drawDirectionsRoute() {
-    this.gmapsApi.getNativeMap().then((map) => {
-      if (!this.directionsRenderer) {
-        this.directionsRenderer = new google.maps.DirectionsRenderer({
-          suppressMarkers: true,
-        });
-      }
-      const directionsRenderer = this.directionsRenderer;
-      const directionsService = new google.maps.DirectionsService();
-      directionsRenderer.setMap(map);
-      directionsService.route(
-        {
-          origin: { lat: 13, lng: 80 },
-          destination: {
-            lat: 14,
-            lng: 80,
-          },
-          waypoints: [],
-          optimizeWaypoints: true,
-          travelMode: google.maps.TravelMode.DRIVING,
-        },
-        (response, status) => {
-          if (status === 'OK') {
-            directionsRenderer.setDirections(response);
-            // If you'll like to display an info window along the route
-            // middleStep is used to estimate the midpoint on the route where the info window will appear
-            // const middleStep = (response.routes[0].legs[0].steps.length / 2).toFixed();
-            // const infowindow2 = new google.maps.InfoWindow();
-            // infowindow2.setContent(`${response.routes[0].legs[0].distance.text} <br> ${response.routes[0].legs[0].duration.text}  `);
-            // infowindow2.setPosition(response.routes[0].legs[0].steps[middleStep].end_location);
-            // infowindow2.open(map);
-          } else {
-            console.log('Directions request failed due to ' + status);
-          }
-        }
-      );
+  @ViewChild('map', { static: true }) public mapElement: ElementRef;
+
+  public lat: any = '22.5726';
+  public lng: any = '88.3639';
+
+  public width: any = '1000px';
+  public height: any = '600px';
+
+  private platform: any;
+  private map: any;
+
+  private _appId: string = 'xxxxxx';
+  private _appCode: string = 'uuuuuu';
+  constructor() {}
+
+  public ngOnInit() {
+    this.platform = new H.service.Platform({
+      app_id: this._appId,
+      app_code: this._appCode,
+      useHTTPS: true,
     });
+  }
+
+  public ngAfterViewInit() {
+    let pixelRatio = window.devicePixelRatio || 1;
+    let defaultLayers = this.platform.createDefaultLayers({
+      tileSize: pixelRatio === 1 ? 256 : 512,
+      ppi: pixelRatio === 1 ? undefined : 320,
+    });
+
+    this.map = new H.Map(
+      this.mapElement.nativeElement,
+      defaultLayers.normal.map,
+      { pixelRatio: pixelRatio }
+    );
+
+    var behavior = new H.mapevents.Behavior(
+      new H.mapevents.MapEvents(this.map)
+    );
+    var ui = H.ui.UI.createDefault(this.map, defaultLayers);
+
+    this.map.setCenter({ lat: this.lat, lng: this.lng });
+    this.map.setZoom(14);
   }
 }

@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class CurrentUserService {
-  public userInfoChanged: Subject<void> = new Subject();
+  public userInfoChanged: Subject<IUserInfo> = new Subject();
 
   private _userInfo: IUserInfo;
 
@@ -20,7 +20,7 @@ export class CurrentUserService {
 
   public set userInfo(info: IUserInfo) {
     this._userInfo = info;
-    this.userInfoChanged.next();
+    this.userInfoChanged.next(this._userInfo);
   }
 
   public get isAdmin(): boolean {

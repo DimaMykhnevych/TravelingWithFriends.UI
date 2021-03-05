@@ -1,0 +1,14 @@
+<div class="main">
+  <app-personal-profile-summary
+    [currentUserInfo]="currentUserInfo"
+    [isEditable]="true"
+    (onDialogClosed)="afterDialogClosed($event)"
+  ></app-personal-profile-summary>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <h2 class="text-center">Visited Places</h2>
+    </div>
+  </div>
+</div>

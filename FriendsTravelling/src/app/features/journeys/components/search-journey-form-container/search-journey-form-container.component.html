@@ -1,0 +1,18 @@
+<mat-card class="sidebar">
+  <mat-card-header>
+    <mat-card-title>Search panel</mat-card-title>
+  </mat-card-header>
+  <mat-card-content
+    ><app-search-journey-form #searchJourneyForm></app-search-journey-form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      [disabled]="searchJourneyForm.form.invalid"
+      (click)="onSubmitClick()"
+    >
+      Search
+    </button>
+    <button mat-raised-button (click)="onClearClick()">Clear</button>
+  </mat-card-actions>
+</mat-card>

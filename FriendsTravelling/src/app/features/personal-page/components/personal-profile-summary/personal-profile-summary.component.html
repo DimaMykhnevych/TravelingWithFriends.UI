@@ -1,0 +1,32 @@
+<div class="user-info conteiner-fluid mb-3">
+  <div class="row">
+    <div class="col-lg-4 d-flex justify-content-center align-items-center">
+      <img class="profile-photo img-fluid" [src]="createImgPath()" />
+    </div>
+    <div class="col-lg-8">
+      <div class="row">
+        <div class="col-lg-8">
+          <h4>{{ currentUserInfo?.userName }}</h4>
+          <p>
+            <i class="fas fa-envelope mr-1"></i> {{ currentUserInfo?.email }}
+          </p>
+          <p><i class="fas fa-city mr-1"></i>{{ currentUserInfo?.country }}</p>
+          <p><i class="fas fa-home mr-1"></i>{{ currentUserInfo?.city }}</p>
+          <p>
+            <i class="fa fa-birthday-cake mr-1" aria-hidden="true"></i
+            >{{ currentUserInfo?.age }} y.o.
+          </p>
+        </div>
+        <div class="col-lg-4" *ngIf="isEditable">
+          <button
+            class="change-profile-btn"
+            mat-stroked-button
+            (click)="openDialog()"
+          >
+            Change profile
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

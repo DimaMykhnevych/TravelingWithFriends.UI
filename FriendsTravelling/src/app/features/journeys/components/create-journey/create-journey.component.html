@@ -1,0 +1,41 @@
+<div class="container">
+  <div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+  </div>
+  <div *ngIf="!isLoading">
+    <app-create-journey-form
+      #journeyForm
+      [journey]="journeyToEdit"
+      [wasJourneyRequested]="wasJourneyRequested"
+    ></app-create-journey-form>
+    <div class="line"></div>
+    <app-create-route-form
+      #routeForm
+      [route]="journeyToEdit?.route"
+    ></app-create-route-form>
+    <div class="line"></div>
+    <app-transport-form
+      #transportForm
+      [transport]="journeyToEdit?.route?.transport"
+    ></app-transport-form>
+    <div class="d-flex justify-content-center m-3">
+      <button
+        type="submit"
+        [class.spinner]="isAdding || isEditing"
+        (click)="onSubmitClick()"
+        mat-raised-button
+        [disabled]="
+          routeForm.form.invalid ||
+          journeyForm.form.invalid ||
+          transportForm.form.invalid ||
+          isAdding ||
+          isEditing
+        "
+        color="primary"
+        class="d-flex justify-content-center submit-btn"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

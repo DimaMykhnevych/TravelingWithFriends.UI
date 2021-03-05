@@ -1,0 +1,32 @@
+<ng-scrollbar track="all" pointerEventsMethod="scrollbar">
+  <div class="wrapper">
+    <div class="container">
+      <div class="search-panel">
+        <app-search-journey-form-container
+          class="search-panel"
+          (onJourneySearch)="onJourneySearch($event)"
+        ></app-search-journey-form-container>
+      </div>
+      <div class="main">
+        <h2 class="heading text-center">Start travelling now!</h2>
+        <div *ngIf="isLoading">
+          <app-spinner></app-spinner>
+        </div>
+        <div *ngIf="journeys.length === 0 && !isLoading && !isSearching">
+          <h3 class="heading text-center">No one has created a journey yet</h3>
+        </div>
+        <div *ngIf="journeys.length === 0 && !isLoading && isSearching">
+          <h3 class="heading text-center">
+            There is no journeys with such parameters
+          </h3>
+        </div>
+        <app-journeys-list
+          [journeys]="journeys"
+          [isEditable]="false"
+          (usernameClicked)="onUserNameClicked($event)"
+          (joinBtnClicked)="onJoinBtnCLicked($event)"
+        ></app-journeys-list>
+      </div>
+    </div>
+  </div>
+</ng-scrollbar>

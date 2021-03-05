@@ -1,6 +1,6 @@
 <form [formGroup]="form" (submit)="onSubmit($event)">
-  <h1>Login</h1>
-  <p>Sign in to account</p>
+  <h1>{{ "login" | translate }}</h1>
+  <p>{{ "auth.sing_in_to_account" | translate }}</p>
   <div class="input-group mb-3 d-flex flex-column">
     <div class="d-flex">
       <div class="input-group-prepend">
@@ -10,7 +10,7 @@
         type="text"
         class="form-control"
         formControlName="username"
-        placeholder="username"
+        placeholder="{{ 'auth.username' | translate }}"
         autocomplete="username"
         required
       />
@@ -19,7 +19,7 @@
       class="alert alert-danger"
       *ngIf="username?.touched && username?.invalid"
     >
-      Username is required!
+      {{ "auth_validation_errors.username_required" | translate }}
     </div>
   </div>
   <div class="input-group mb-4 d-flex flex-column">
@@ -31,7 +31,7 @@
         type="password"
         class="form-control"
         formControlName="password"
-        placeholder="password"
+        placeholder="{{ 'auth.password' | translate }}"
         autocomplete="current-password"
         required
       />
@@ -40,7 +40,7 @@
       class="alert alert-danger"
       *ngIf="password?.touched && password?.invalid"
     >
-      Password is required!
+      {{ "auth_validation_errors.password_required" | translate }}
     </div>
   </div>
   <div class="row">
@@ -50,7 +50,7 @@
         class="btn btn-primary px-4"
         [disabled]="this.form.invalid"
       >
-        Login
+        {{ "login" | translate }}
       </button>
     </div>
   </div>

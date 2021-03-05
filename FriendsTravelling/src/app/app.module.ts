@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { MaterialModule } from './layout/material.module';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { MaterialModule } from './layout/material';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,31 +14,53 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './features/home/home.module';
 import { LoginModule } from './features/login';
 import { PersonalPageModule } from './features/personal-page/personal-page.module';
-import { UserInfoService } from './core/auth';
-import { loadUserInfo } from './core/app-initializers/load-user-info.initializer';
+import { JourneysModule } from './features/journeys';
 
+import { JourneyRequestResponseModule } from './features/journey-request-response';
+import {
+  ConfirmDialogComponent,
+  JourneyDetailsDialogComponent,
+  NotificationDialogComponent,
+} from './layout/dialogs';
+import { GoogleMapsModule } from './features/google-maps/google-maps.module';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
+import { environment } from '../environments/environment';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    ConfirmDialogComponent,
+    NotificationDialogComponent,
+    JourneyDetailsDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
+    CommonModule,
     BrowserAnimationsModule,
     HomeModule,
     LoginModule,
     HttpClientModule,
     PersonalPageModule,
     ToastrModule.forRoot(),
-  ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (userInfoService: UserInfoService) =>
-        loadUserInfo(userInfoService),
-      deps: [UserInfoService],
-      multi: true,
-    },
+    JourneysModule,
+    JourneyRequestResponseModule,
+    GoogleMapsModule,
+    AgmDirectionModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.API_KEY,
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) =>
+          new TranslateHttpLoader(http, './assets/i18n/', '.json'),
+        deps: [HttpClient],
+      },
+    }),
   ],
   bootstrap: [AppComponent],
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

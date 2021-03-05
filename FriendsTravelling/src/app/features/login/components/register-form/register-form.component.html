@@ -1,6 +1,6 @@
 <form [formGroup]="form" (submit)="onSubmit($event)">
-  <h1>Register</h1>
-  <p>Create your account</p>
+  <h1>{{ "register" | translate }}</h1>
+  <p>{{ "auth.create_your_account" | translate }}</p>
   <div class="input-group mb-3 d-flex flex-column">
     <div class="d-flex">
       <div class="input-group-prepend">
@@ -10,7 +10,7 @@
         type="text"
         class="form-control"
         formControlName="username"
-        placeholder="username"
+        placeholder="{{ 'auth.username' | translate }}"
         required
       />
     </div>
@@ -18,7 +18,7 @@
       class="alert alert-danger"
       *ngIf="username?.touched && username?.invalid"
     >
-      Username is required!
+      {{ "register_validation_errors.username_required" | translate }}
     </div>
   </div>
   <div class="input-group mb-3 d-flex flex-column">
@@ -29,14 +29,18 @@
       <input
         type="text"
         class="form-control"
-        placeholder="email"
+        placeholder="{{ 'auth.email' | translate }}"
         formControlName="email"
         required
       />
     </div>
     <div class="alert alert-danger" *ngIf="email?.touched && email?.invalid">
-      <div *ngIf="email?.errors?.required">Email is required!</div>
-      <div *ngIf="email?.errors?.pattern">Email is typed incorrect!</div>
+      <div *ngIf="email?.errors?.required">
+        {{ "register_validation_errors.email_required" | translate }}
+      </div>
+      <div *ngIf="email?.errors?.pattern">
+        {{ "register_validation_errors.email_incorrect" | translate }}
+      </div>
     </div>
   </div>
   <div class="input-group mb-3 d-flex flex-column">
@@ -48,7 +52,7 @@
         type="password"
         class="form-control"
         formControlName="password"
-        placeholder="password"
+        placeholder="{{ 'auth.password' | translate }}"
         required
       />
     </div>
@@ -56,14 +60,13 @@
       class="alert alert-danger"
       *ngIf="password?.touched && password?.errors?.required"
     >
-      Password is required!
+      {{ "register_validation_errors.password_required" | translate }}
     </div>
     <div
       class="alert alert-danger"
       *ngIf="password?.touched && password?.errors?.pattern"
     >
-      Password must contain minimum seven characters, at least one uppercase
-      letter, one lowercase letter, one number and one special character.
+      {{ "register_validation_errors.password_incorrect" | translate }}
     </div>
   </div>
   <div class="input-group mb-4 d-flex flex-column">
@@ -75,7 +78,7 @@
         type="password"
         formControlName="confirmPassword"
         class="form-control"
-        placeholder="confirm password"
+        placeholder="{{ 'auth.confirm_password' | translate }}"
         required
       />
     </div>
@@ -83,13 +86,13 @@
       class="alert alert-danger"
       *ngIf="confirmPassword?.touched && confirmPassword?.invalid"
     >
-      Password confirmation is required!
+      {{ "register_validation_errors.confirm_password_required" | translate }}
     </div>
     <div
       class="alert alert-danger"
       *ngIf="confirmPassword?.touched && passwordsNotMatches"
     >
-      Passwords don't match!
+      {{ "register_validation_errors.passwords_do_not_match" | translate }}
     </div>
   </div>
   <div class="input-group mb-3 d-flex flex-column">
@@ -100,7 +103,7 @@
       <input
         type="text"
         class="form-control"
-        placeholder="country"
+        placeholder="{{ 'country' | translate }}"
         formControlName="country"
         required
       />
@@ -109,7 +112,7 @@
       class="alert alert-danger"
       *ngIf="country?.touched && country?.invalid"
     >
-      Country is required!
+      {{ "register_validation_errors.country_required" | translate }}
     </div>
   </div>
   <div class="input-group mb-3 d-flex flex-column">
@@ -120,13 +123,13 @@
       <input
         type="text"
         class="form-control"
-        placeholder="city"
+        placeholder="{{ 'city' | translate }}"
         formControlName="city"
         required
       />
     </div>
     <div class="alert alert-danger" *ngIf="city?.touched && city?.invalid">
-      City is required!
+      {{ "register_validation_errors.city_required" | translate }}
     </div>
   </div>
   <div class="input-group mb-3 d-flex flex-column">
@@ -137,7 +140,7 @@
       <input
         type="number"
         class="form-control"
-        placeholder="age"
+        placeholder="{{ 'age' | translate }}"
         formControlName="age"
         required
       />
@@ -146,10 +149,10 @@
       class="alert alert-danger"
       *ngIf="age?.touched && age?.errors?.required"
     >
-      Age is required!
+      {{ "register_validation_errors.age_required" | translate }}
     </div>
     <div class="alert alert-danger" *ngIf="age?.touched && age?.errors?.min">
-      You must be at least 18 years old!
+      {{ "register_validation_errors.min_age" | translate }}
     </div>
   </div>
   <button
@@ -157,6 +160,6 @@
     class="btn btn-block btn-success"
     [disabled]="this.form.invalid"
   >
-    Create account
+    {{ "auth.create_account" | translate }}
   </button>
 </form>

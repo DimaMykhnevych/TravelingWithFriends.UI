@@ -1,0 +1,57 @@
+<h4 class="text-center p-2">Route</h4>
+<div class="row">
+  <div class="col-lg-12 d-flex justify-content-center">
+    <button mat-mini-fab color="accent" (click)="onAddRouteClick()">
+      <mat-icon>plus_one</mat-icon>
+    </button>
+  </div>
+</div>
+<form [formGroup]="form" class="create-route-form">
+  <div formArrayName="locations" class="row p-3 d-flex justify-content-center">
+    <div
+      *ngFor="let route of locations.controls; let i = index"
+      [formGroupName]="i"
+      class="route-wrapper mr-2 mb-2"
+    >
+      <div class="d-flex justify-content-center">
+        <div class="d-flex align-items-center p-3">Place №{{ i + 1 }}</div>
+        <div>
+          <button
+            *ngIf="i != 0"
+            class="m-3"
+            mat-raised-button
+            (click)="onDeleteRouteClick(i)"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+        <mat-form-field appearance="fill">
+          <mat-label>Location Name</mat-label>
+          <input
+            formControlName="name"
+            required
+            matInput
+            type="text"
+            class="example-right-align"
+          />
+          <mat-error>{{ getLocationNameErrorMesage(i) }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+        <mat-form-field appearance="fill">
+          <mat-label>Country Name</mat-label>
+          <input
+            formControlName="country"
+            required
+            matInput
+            type="text"
+            class="example-right-align"
+          />
+          <mat-error>{{ getCountryErrorMessage(i) }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>

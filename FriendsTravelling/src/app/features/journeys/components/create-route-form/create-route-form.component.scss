@@ -1,0 +1,23 @@
+.route-wrapper {
+  border: 2px solid blanchedalmond;
+  border-radius: 10px;
+}
+::ng-deep .create-route-form .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+}
+
+::ng-deep .create-route-form .mat-form-field-underline {
+  /*change color of underline*/
+  background-color: white !important;
+}
+
+::ng-deep .create-route-form .mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: white !important;
+}
+
+::ng-deep .create-route-form .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+}

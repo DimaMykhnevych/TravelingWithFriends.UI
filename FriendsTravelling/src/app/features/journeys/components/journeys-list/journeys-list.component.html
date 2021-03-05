@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12" *ngFor="let journey of journeys">
+      <app-journey-list-item
+        [journey]="journey"
+        [isEditable]="isEditable"
+        (delete)="onDeleteJourney($event)"
+        (edit)="onEditJourney($event)"
+        (usernameClicked)="onUserNameClicked($event)"
+        (joinBtnCliced)="onjoinBtnCliced($event)"
+      ></app-journey-list-item>
+    </div>
+  </div>
+</div>

@@ -13,14 +13,14 @@ export class LoginViewComponent implements OnInit {
 
   public ngOnInit(): void {
     if (this._auth.isAuthenticated()) {
-      this._router.navigate(['/myPage']);
+      this._router.navigate(['/profile/journeys']);
     }
   }
 
   public login(value: AuthForm): void {
     this._auth.authorize(value).subscribe((isAuthorized: boolean) => {
       if (isAuthorized) {
-        this._router.navigate(['/myPage']);
+        this._router.navigate(['/profile/journeys']);
       } else {
         this.isLoginSucessfull = false;
       }

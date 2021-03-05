@@ -1,0 +1,157 @@
+<h4 class="text-center p-2">Journey</h4>
+<form [formGroup]="form" class="create-journey-form">
+  <div class="row p-3 d-flex justify-content-center">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+      <mat-form-field appearance="fill">
+        <mat-label>Start date</mat-label>
+        <input
+          formControlName="startDate"
+          matInput
+          type="datetime"
+          [matDatepicker]="startDatePicker"
+          required
+        />
+        <mat-error *ngIf="startDate?.touched && startDate?.invalid">
+          <div *ngIf="startDate?.errors?.required">This field is required</div>
+          <div *ngIf="startDate?.errors?.startDate">
+            This date can't be in past
+          </div></mat-error
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startDatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+      <mat-form-field appearance="fill">
+        <mat-label>End date</mat-label>
+        <input
+          formControlName="endDate"
+          required
+          type="datetime"
+          matInput
+          [matDatepicker]="endDatePicker"
+        />
+        <mat-error *ngIf="endDate?.touched && endDate?.invalid">
+          <div *ngIf="endDate?.errors?.required">This field is required</div>
+          <div *ngIf="endDate?.errors?.wrongEndDate">
+            This date can't be before the Start Date
+          </div></mat-error
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endDatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+      <mat-form-field appearance="fill">
+        <mat-label>Price per ticket</mat-label>
+        <input
+          formControlName="price"
+          required
+          matInput
+          type="number"
+          class="example-right-align"
+        />
+        <span matPrefix>$&nbsp;</span>
+        <span matSuffix>.00</span>
+        <mat-error *ngIf="price?.touched && price?.invalid">
+          <div *ngIf="price?.errors?.required">This field is required</div>
+          <div *ngIf="price?.errors?.min">
+            Price must be at least 3 dollars
+          </div></mat-error
+        >
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+      <mat-form-field appearance="fill">
+        <mat-label>Available Places</mat-label>
+        <input
+          formControlName="availablePlaces"
+          required
+          type="number"
+          matInput
+        />
+        <mat-error *ngIf="availablePlaces?.touched && availablePlaces?.invalid">
+          <div *ngIf="availablePlaces?.errors?.required">
+            This field is required
+          </div>
+          <div *ngIf="availablePlaces?.errors?.min">
+            There must be at least 1 available place
+          </div>
+          <div *ngIf="availablePlaces?.errors?.wrongAvailablePlaces">
+            You can't set this field with value that smaller then current value
+          </div></mat-error
+        >
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div
+      class="col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-center"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Minimum Required Age</mat-label>
+        <input
+          formControlName="minimumRequiredAge"
+          required
+          type="number"
+          matInput
+        />
+        <mat-error
+          *ngIf="minimumRequiredAge?.touched && minimumRequiredAge?.invalid"
+        >
+          <div *ngIf="minimumRequiredAge?.errors?.required">
+            This field is required
+          </div>
+          <div *ngIf="minimumRequiredAge?.errors?.min">
+            Minimum age must be at least 18 years old
+          </div></mat-error
+        >
+      </mat-form-field>
+    </div>
+    <div
+      class="col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-center"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Maximum Required Age</mat-label>
+        <input
+          formControlName="maximumRequiredAge"
+          required
+          type="number"
+          matInput
+        />
+        <mat-error
+          *ngIf="maximumRequiredAge?.touched && maximumRequiredAge?.invalid"
+        >
+          <div *ngIf="maximumRequiredAge?.errors?.required">
+            This field is required
+          </div>
+          <div *ngIf="maximumRequiredAge?.errors?.min">
+            Maximum age must be at least 18 years old
+          </div>
+          <div *ngIf="maximumRequiredAge?.errors?.wrongMaxAge">
+            Maximum age should be greater then minimum age
+          </div>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 d-flex justify-content-center">
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" required matInput></textarea>
+        <mat-error *ngIf="description?.touched && description?.invalid">
+          <div *ngIf="description?.errors?.required">
+            This field is required
+          </div>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</form>

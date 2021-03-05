@@ -1,0 +1,22 @@
+<ng-scrollbar track="all" pointerEventsMethod="scrollbar">
+  <div class="main">
+    <div class="content container">
+      <h2 class="text-center">Inbox Requests</h2>
+      <div *ngIf="isLoading">
+        <app-spinner></app-spinner>
+      </div>
+      <div *ngIf="userInboxRequests.length === 0 && !isLoading">
+        <h3 class="text-center info-heading">
+          {{ "requests.inbox_requests_empty" | translate }}
+        </h3>
+      </div>
+      <app-requests-list
+        [requests]="userInboxRequests"
+        [isInboxRequest]="true"
+        (detailsClicked)="onJourneyDetailsClick($event)"
+        (onRequestAccept)="onRequestAccept($event)"
+        (onRequestDecline)="onRequestDecline($event)"
+      ></app-requests-list>
+    </div>
+  </div>
+</ng-scrollbar>

@@ -1,0 +1,112 @@
+<div class="main">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title
+        >{{ journey.route.routeLocations[0].location.name }} Journey ({{
+          journey.startDate | date
+        }})
+        <div *ngIf="!isJourneyRequestReviewed">
+          <img
+            width="40"
+            height="40"
+            class="rounded-circle profile-image"
+            [src]="createImgPath()"
+          />
+        </div>
+      </mat-card-title>
+      <mat-card-subtitle *ngIf="!isJourneyRequestReviewed">
+        <span
+          >Created By:
+          <button
+            (click)="onUserNameClick($event)"
+            class="created-by-button"
+            mat-button
+          >
+            {{ journey.userJourneys[0].appUser.userName }}
+          </button></span
+        >
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ journey.description }}</p>
+      <div class="row d-flex justify-content-around">
+        <div class="col-lg-3 col-md-3">
+          <p>
+            <i class="fas fa-calendar"></i> Start date:
+            {{ journey.startDate | date }}
+          </p>
+          <p>
+            <i class="fas fa-calendar"></i> End date:
+            {{ journey.endDate | date }}
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <p>
+            <i class="fas fa-birthday-cake"></i> Minimum age:
+            {{ journey.minimumRequiredAge }} years old
+          </p>
+          <p>
+            <i class="fas fa-birthday-cake"></i> Maximum age:
+            {{ journey.maximumRequiredAge }} years old
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <p>
+            <i class="fas fa-money-bill-wave"></i> Price per ticket:
+            {{ journey.price }}
+          </p>
+          <p>
+            <i class="fas fa-chair"></i> Available places:
+            {{ journey.availablePlaces }} (considering current requests)
+            <span
+              class="bg-info text-white"
+              *ngIf="journey.availablePlaces == 0"
+              ><br />
+              all places are reserved</span
+            >
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <p>
+            <i class="fas fa-plane"></i> Transport:
+            {{ journey.route.transport.name }}
+          </p>
+          <p>
+            <i class="fas fa-info"></i> Description:
+            {{ journey.route.transport.description }}
+          </p>
+        </div>
+      </div>
+      <p><b>Route</b></p>
+      <span *ngFor="let routeLocation of journey.route.routeLocations">
+        {{ routeLocation.location.name }}({{ routeLocation.location.country }})
+        <i class="fas fa-arrow-right"></i>
+      </span>
+      <i class="fas fa-home ml-1"></i>
+    </mat-card-content>
+    <div *ngIf="isEditable">
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onEditJourneyClick()"
+        >
+          Edit
+        </button>
+        <button mat-raised-button color="warn" (click)="onDeleteJourneyClick()">
+          Delete
+        </button>
+      </mat-card-actions>
+    </div>
+    <div *ngIf="!isEditable && !isJourneyRequestReviewed">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onJoinButtonClick()"
+        [disabled]="isJoinBtnDisabled"
+      >
+        Join this journey
+      </button>
+    </div>
+  </mat-card>
+</div>

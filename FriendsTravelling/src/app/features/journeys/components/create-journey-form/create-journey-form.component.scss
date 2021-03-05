@@ -1,0 +1,22 @@
+::ng-deep .create-journey-form .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+}
+
+::ng-deep .create-journey-form .mat-form-field-underline {
+  /*change color of underline*/
+  background-color: white !important;
+}
+
+::ng-deep .create-journey-form .mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: white !important;
+}
+
+::ng-deep .create-journey-form .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+}
+.create-journey-form mat-datepicker-toggle {
+  color: white !important;
+}

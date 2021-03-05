@@ -37,6 +37,6 @@ export class AuthService {
 
   public unauthorize(): void {
     this._tokenService.clearToken();
-    this._currentUserService.userInfo = (null as unknown) as IUserInfo;
+    this._currentUserService.userInfo = null;
   }
 }

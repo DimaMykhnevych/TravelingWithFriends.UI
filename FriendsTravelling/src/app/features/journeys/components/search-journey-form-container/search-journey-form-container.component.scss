@@ -1,0 +1,11 @@
+.sidebar {
+  width: 70%;
+  // height: 50vh;
+  // max-height: 50vh;
+  overflow: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 15%;
+  padding: 15px;
+  // background-color: rgb(144, 166, 206);
+}

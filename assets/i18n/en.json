@@ -1,0 +1,49 @@
+{
+  "login": "Login",
+  "register": "Register",
+  "signup": "Sign up",
+  "register_now": "Register Now!",
+  "already_have_account": "Do you have already an account?",
+  "auth": {
+    "sing_in_to_account": "Sign In to your account",
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "country": "Country",
+    "city": "City",
+    "age": "Age",
+    "confirm_password": "Confirm password",
+    "create_your_account": "Create your account",
+    "create_account": "Create Account"
+  },
+  "auth_validation_errors": {
+    "username_required": "Username is required!",
+    "password_required": "Password is required!",
+    "invalid_credentials": "Username or Password is invalid"
+  },
+  "register_validation_errors": {
+    "email_required": "Email is required!",
+    "username_required": "Username is required!",
+    "password_required": "Password is required!",
+    "country_required": "Country is required!",
+    "city_required": "City is required!",
+    "age_required": "Age is required!",
+    "confirm_password_required": "Password confirmation is required!",
+    "passwords_do_not_match": "Passwords don't match!",
+    "email_incorrect": "Email is typed incorrect!",
+    "password_incorrect": " Password must contain minimum seven characters, at least one uppercase letter, one lowercase letter, one number and one special character.",
+    "min_age": "You must be at least 18 years old!"
+  },
+  "created_by": "Created by",
+  "requested_by": "Requested by",
+  "discard": "Discard",
+  "details": "Details",
+  "close": "Close",
+  "accept": "Accept",
+  "decline": "Decline",
+  "requests": {
+    "my_requests": "My Requests",
+    "my_requests_empty": "You have not made any request to join the journey yet",
+    "inbox_requests_empty": "You haven't had any request to your journeys yet"
+  }
+}

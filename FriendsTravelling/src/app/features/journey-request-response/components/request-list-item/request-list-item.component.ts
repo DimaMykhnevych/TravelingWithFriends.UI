@@ -52,6 +52,10 @@ export class RequestListItemComponent implements OnInit {
     return RequestStatusMapper.getRequestStatusString(status);
   }
 
+  public isStatusPending(){
+    return this.request.journeyRequestStatus == RequestStatuses.pending;
+  }
+
   public defineCardClass(): string {
     switch (this.request.journeyRequestStatus) {
       case RequestStatuses.accepted:

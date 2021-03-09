@@ -58,6 +58,7 @@
         mat-raised-button
         color="warn"
         (click)="onDiscardBtnClick()"
+        [disabled]="!isStatusPending()"
       >
         {{ "discard" | translate }}
       </button>
@@ -66,10 +67,16 @@
           (click)="onAcceptRequest()"
           mat-raised-button
           class="accept-btn"
+          [disabled]="!isStatusPending()"
         >
           {{ "accept" | translate }}
         </button>
-        <button (click)="onDeclineRequest()" mat-raised-button color="warn">
+        <button
+          (click)="onDeclineRequest()"
+          mat-raised-button
+          color="warn"
+          [disabled]="!isStatusPending()"
+        >
           {{ "decline" | translate }}
         </button>
       </span>

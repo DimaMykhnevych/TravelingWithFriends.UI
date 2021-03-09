@@ -1,10 +1,9 @@
 .app-body {
-  // height: 120vh;
+  min-height: 100vh;
   background-image: url("../../../../../assets/images/signUp.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   .main {
-    // height: 120vh;
     padding: 30px 0px;
     .card {
       background-color: rgba(0, 0, 0, 0.349);

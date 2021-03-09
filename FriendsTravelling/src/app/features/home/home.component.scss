@@ -70,7 +70,18 @@
 
 @media screen and (max-width: 400px) {
   .desc-text {
-    font-size: 15px;
+    font-size: 10px;
+  }
+  .description {
+    h2 {
+      margin-top: -60px;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #section02 a span {
+    top: 91%;
   }
 }
 

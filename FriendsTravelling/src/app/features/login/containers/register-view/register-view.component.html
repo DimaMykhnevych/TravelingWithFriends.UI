@@ -7,6 +7,8 @@
             <div class="card-body p-4">
               <app-register-form
                 (submit)="register($event)"
+                [isUsernameAlreadyTaken]="isUserNameAlreadyTaken"
+                [isAddingUser]="isAddingUser"
               ></app-register-form>
             </div>
             <div class="card-footer p-4">
@@ -20,7 +22,9 @@
                     type="button"
                     (click)="login()"
                   >
-                    <span style="color: blue">{{ "login" | translate }}</span>
+                    <span style="color: rgb(118, 224, 228)">{{
+                      "login" | translate
+                    }}</span>
                   </button>
                 </div>
               </div>

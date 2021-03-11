@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthForm, AuthService } from '../../../../core/auth';
+import { LoginErrorCodes } from 'src/app/core/auth/enums/login-errors-code.enum';
+import { AuthForm, AuthResponse, AuthService } from '../../../../core/auth';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +9,7 @@ import { AuthForm, AuthService } from '../../../../core/auth';
   styleUrls: ['./login-view.component.scss'],
 })
 export class LoginViewComponent implements OnInit {
-  public isLoginSucessfull: boolean = true;
+  public authResponse: AuthResponse;
   constructor(private _auth: AuthService, private _router: Router) {}
 
   public ngOnInit(): void {
@@ -18,16 +19,30 @@ export class LoginViewComponent implements OnInit {
   }
 
   public login(value: AuthForm): void {
-    this._auth.authorize(value).subscribe((isAuthorized: boolean) => {
-      if (isAuthorized) {
+    this._auth.authorize(value).subscribe((authResponse: AuthResponse) => {
+      if (authResponse.isAuthorized) {
         this._router.navigate(['/profile/journeys']);
       } else {
-        this.isLoginSucessfull = false;
+        this.authResponse = authResponse;
       }
     });
   }
 
   public register(): void {
     this._router.navigate(['/register']);
+  }
+
+  public isInvalidCredentials(): boolean {
+    return (
+      this.authResponse?.loginErrorCode ===
+      LoginErrorCodes.InvalidUsernameOrPassword
+    );
+  }
+
+  public isEmailConfirmationRequired(): boolean {
+    return (
+      this.authResponse?.loginErrorCode ===
+      LoginErrorCodes.EmailConfirmationRequired
+    );
   }
 }

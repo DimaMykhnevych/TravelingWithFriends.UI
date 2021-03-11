@@ -6,4 +6,5 @@ export interface RegistrationForm {
   country: string;
   age: number;
   email: number;
+  clientURI: string;
 }

@@ -7,8 +7,19 @@
             <div class="card p-4">
               <div class="card-body">
                 <app-login-form (submit)="login($event)"></app-login-form>
-                <div class="alert alert-danger mt-3" *ngIf="!isLoginSucessfull">
+                <div
+                  class="alert alert-danger mt-3"
+                  *ngIf="isInvalidCredentials()"
+                >
                   {{ "auth_validation_errors.invalid_credentials" | translate }}
+                </div>
+                <div
+                  class="alert alert-danger mt-3"
+                  *ngIf="isEmailConfirmationRequired()"
+                >
+                  {{
+                    "auth_validation_errors.confirmation_required" | translate
+                  }}
                 </div>
               </div>
             </div>

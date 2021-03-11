@@ -1,10 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { RegistrationForm } from '../../../../core/auth';
 
 @Component({
@@ -12,7 +21,19 @@ import { RegistrationForm } from '../../../../core/auth';
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss'],
 })
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent implements OnInit, OnDestroy {
+  @Input() public set isUsernameAlreadyTaken(result: boolean) {
+    this._isUsernameAlreadyTaken = result;
+  }
+  public get isUsernameAlreadyTaken(): boolean {
+    return this._isUsernameAlreadyTaken;
+  }
+  @Input() public set isAddingUser(result: boolean) {
+    this._isAddingUser = result;
+  }
+  public get isAddingUser(): boolean {
+    return this._isAddingUser;
+  }
   @Output()
   public submit: EventEmitter<RegistrationForm> = new EventEmitter<RegistrationForm>();
 
@@ -20,11 +41,25 @@ export class RegisterFormComponent implements OnInit {
   public submitted: boolean = false;
   public passwordsNotMatches: boolean = false;
 
+  private _destroy$: Subject<void> = new Subject<void>();
+  private _isUsernameAlreadyTaken: boolean;
+  private _isAddingUser: boolean;
+
   constructor(private _builder: FormBuilder) {
     this.form = this._builder.group({});
   }
 
   public ngOnInit(): void {
+    this.initializeForm();
+    this.subscribeOnFormValueChanges();
+  }
+
+  public ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
+  public initializeForm(): void {
     this.form = this._builder.group({
       username: new FormControl('', [Validators.required]),
       email: new FormControl('', [
@@ -42,18 +77,18 @@ export class RegisterFormComponent implements OnInit {
       city: new FormControl('', [Validators.required]),
       age: new FormControl('', [Validators.required, Validators.min(18)]),
     });
+  }
 
-    this.form.valueChanges.subscribe((value: RegistrationForm) => {
-      if (value.password !== value.confirmPassword) {
-        this.passwordsNotMatches = true;
-      } else {
-        this.passwordsNotMatches = false;
-      }
-      // } else {
-      //   this.form.controls.password.setErrors(null);
-      //   this.form.controls.confirmPassword.setErrors(null);
-      // }
-    });
+  public subscribeOnFormValueChanges(): void {
+    this.form.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((value: RegistrationForm) => {
+        if (value.password !== value.confirmPassword) {
+          this.passwordsNotMatches = true;
+        } else {
+          this.passwordsNotMatches = false;
+        }
+      });
   }
 
   get username() {

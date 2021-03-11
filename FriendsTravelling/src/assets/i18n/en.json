@@ -19,7 +19,8 @@
   "auth_validation_errors": {
     "username_required": "Username is required!",
     "password_required": "Password is required!",
-    "invalid_credentials": "Username or Password is invalid"
+    "invalid_credentials": "Username or Password is invalid",
+    "confirmation_required": "You need to confirm your email, please check your mailbox"
   },
   "register_validation_errors": {
     "email_required": "Email is required!",
@@ -32,7 +33,8 @@
     "passwords_do_not_match": "Passwords don't match!",
     "email_incorrect": "Email is typed incorrect!",
     "password_incorrect": " Password must contain minimum seven characters, at least one uppercase letter, one lowercase letter, one number and one special character.",
-    "min_age": "You must be at least 18 years old!"
+    "min_age": "You must be at least 18 years old!",
+    "username_already_taken": "This username already taken!"
   },
   "created_by": "Created by",
   "requested_by": "Requested by",

@@ -19,18 +19,18 @@ export class AuthService {
     return !!this._tokenService.token;
   }
 
-  public authorize(form: AuthForm): Observable<boolean> {
+  public authorize(form: AuthForm): Observable<AuthResponse> {
     return this._http
       .post<AuthResponse>(`${AppSettings.apiHost}/auth/token`, form)
       .pipe(
         map((response: AuthResponse) => {
           if (!response.isAuthorized) {
-            return false;
+            return response;
           }
           this._tokenService.token = response.token;
           this._currentUserService.userInfo = response.userInfo;
 
-          return true;
+          return response;
         })
       );
   }

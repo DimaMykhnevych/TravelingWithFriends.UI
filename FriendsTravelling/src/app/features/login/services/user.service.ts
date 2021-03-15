@@ -5,7 +5,9 @@ import { AppSettings } from '../../../core/settings';
 import { RegistrationForm } from '../../../core/auth';
 import { IConfirmEmailModel } from 'src/app/core/models/confirm-email';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
   constructor(private _http: HttpClient) {}
 

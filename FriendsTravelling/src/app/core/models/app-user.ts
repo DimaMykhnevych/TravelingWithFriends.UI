@@ -1,5 +1,7 @@
 import { IImageModel } from './image';
 import { IJourneyRequestModel } from './journey-request';
+import { IMessageModel } from './message';
+import { IUserChat } from './user-chat';
 import { IUserJourneysModel } from './user-journey';
 
 export interface IAppUserModel {
@@ -13,4 +15,6 @@ export interface IAppUserModel {
   userJourneys: IUserJourneysModel[];
   profileImage: IImageModel;
   journeyRequests: IJourneyRequestModel[];
+  userChats: IUserChat[];
+  messages: IMessageModel[];
 }

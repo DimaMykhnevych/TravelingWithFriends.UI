@@ -22,6 +22,7 @@ import {
   JourneyDetailsDialogComponent,
   NotificationDialogComponent,
 } from './layout/dialogs';
+import { ChatModule } from './features/chat/chat.module';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {
     ToastrModule.forRoot(),
     JourneysModule,
     JourneyRequestResponseModule,
+    ChatModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

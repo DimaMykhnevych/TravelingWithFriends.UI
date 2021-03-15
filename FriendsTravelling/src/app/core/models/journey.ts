@@ -1,3 +1,4 @@
+import { IChatModel } from './chat';
 import { IRouteModel } from './route';
 import { IUserJourneysModel } from './user-journey';
 
@@ -14,4 +15,5 @@ export interface IJourneyModel {
   routeId: number;
   route: IRouteModel;
   userJourneys: IUserJourneysModel[];
+  chat: IChatModel;
 }

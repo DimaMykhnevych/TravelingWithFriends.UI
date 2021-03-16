@@ -23,6 +23,7 @@ import {
   NotificationDialogComponent,
 } from './layout/dialogs';
 import { ChatModule } from './features/chat/chat.module';
+import { ChatParticipantsDialogModule } from './layout/dialogs/chat-participants-dialog/chat-participants-dialog.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ChatModule } from './features/chat/chat.module';
     JourneysModule,
     JourneyRequestResponseModule,
     ChatModule,
+    ChatParticipantsDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

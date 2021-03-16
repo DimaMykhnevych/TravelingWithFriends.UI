@@ -1,0 +1,18 @@
+<div class="main container">
+  <div class="row">
+    <div class="col-lg-12 pb-3">
+      <mat-card class="card" (click)="onUserClick()" mat-dialog-close="yes">
+        <mat-card-content>
+          <img
+            [src]="createImgPath()"
+            width="40"
+            height="40"
+            class="rounded-circle"
+          />
+          <span class="p-2">{{ user.userName }}</span>
+          {{ user.email }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

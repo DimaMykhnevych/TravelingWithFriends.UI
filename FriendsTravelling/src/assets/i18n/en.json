@@ -47,5 +47,15 @@
     "my_requests": "My Requests",
     "my_requests_empty": "You have not made any request to join the journey yet",
     "inbox_requests_empty": "You haven't had any request to your journeys yet"
+  },
+  "chats": {
+    "chats": "Chats",
+    "chats_empty": "You don't have any chat. You need to create or join the journey to start messaging.",
+    "start_messaging": "Start messaging",
+    "view_participants": "View chat participants"
+  },
+  "journeys": {
+    "create_journey": "Create Journey",
+    "join_journey": "Join the journey"
   }
 }

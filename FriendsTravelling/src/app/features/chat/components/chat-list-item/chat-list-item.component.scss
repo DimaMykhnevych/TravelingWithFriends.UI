@@ -1,3 +1,10 @@
 .card {
   background-color: rgb(241, 212, 172);
+  .title {
+    font-family: "Cormorant Unicase", serif;
+  }
+  .content {
+    font-size: 1.3em;
+    color: rgb(83, 13, 13);
+  }
 }

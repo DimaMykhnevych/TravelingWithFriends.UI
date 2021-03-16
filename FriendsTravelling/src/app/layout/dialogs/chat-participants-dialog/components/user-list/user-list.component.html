@@ -1,0 +1,12 @@
+<div class="main container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div *ngFor="let user of users">
+        <app-user-list-item
+          [user]="user"
+          (userClicked)="onUserClicked($event)"
+        ></app-user-list-item>
+      </div>
+    </div>
+  </div>
+</div>

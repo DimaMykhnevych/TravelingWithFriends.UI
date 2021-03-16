@@ -1,8 +1,28 @@
 <div class="container-fluid main">
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="text-center">Chats</h1>
-      <app-chat-list [chats]="chats"></app-chat-list>
+      <h1 class="text-center">{{ "chats.chats" | translate }}</h1>
+      <div *ngIf="!isLoaded">
+        <app-spinner></app-spinner>
+      </div>
+      <div *ngIf="chats?.length === 0 && isLoaded">
+        <h3 class="text-center info-heading">
+          {{ "chats.chats_empty" | translate }}
+        </h3>
+        <div class="d-flex justify-content-around">
+          <a routerLink="/profile/journeys">{{
+            "journeys.create_journey" | translate
+          }}</a>
+          <a routerLink="/profile/allJourneys">{{
+            "journeys.join_journey" | translate
+          }}</a>
+        </div>
+      </div>
+      <app-chat-list
+        [chats]="chats"
+        (onChatCreatorClick)="onChatCreatorClick($event)"
+        (onParticipantsListClick)="onParticipantsListClick($event)"
+      ></app-chat-list>
     </div>
   </div>
 </div>

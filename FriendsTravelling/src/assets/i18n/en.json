@@ -43,6 +43,7 @@
   "close": "Close",
   "accept": "Accept",
   "decline": "Decline",
+  "send": "Send",
   "requests": {
     "my_requests": "My Requests",
     "my_requests_empty": "You have not made any request to join the journey yet",
@@ -50,6 +51,7 @@
   },
   "chats": {
     "chats": "Chats",
+    "chat": "Chat",
     "chats_empty": "You don't have any chat. You need to create or join the journey to start messaging.",
     "start_messaging": "Start messaging",
     "view_participants": "View chat participants"

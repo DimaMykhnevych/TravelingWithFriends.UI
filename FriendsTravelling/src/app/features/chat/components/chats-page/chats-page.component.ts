@@ -60,4 +60,12 @@ export class ChatsPageComponent implements OnInit {
       });
     });
   }
+
+  public onStartMessaging(chatId: number): void {
+    this._router.navigate(['/profile/chat'], {
+      queryParams: {
+        chatId: chatId,
+      },
+    });
+  }
 }

@@ -12,6 +12,8 @@ export class ChatListComponent implements OnInit {
   onChatCreatorClick: EventEmitter<number> = new EventEmitter<number>();
   @Output()
   onParticipantsListClick: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  onStartMessaging: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() {}
 
@@ -22,5 +24,9 @@ export class ChatListComponent implements OnInit {
   }
   public onParticipantsListBtnClick(chatId: number): void {
     this.onParticipantsListClick.emit(chatId);
+  }
+
+  public onChatBtnClick(chatId: number): void {
+    this.onStartMessaging.emit(chatId);
   }
 }

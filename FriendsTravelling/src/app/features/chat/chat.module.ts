@@ -9,9 +9,15 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { SpinnerModule } from 'src/app/layout/spinner/spinner.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { ChatAreaComponent } from './components/chat-area/chat-area.component';
 
 @NgModule({
-  declarations: [ChatsPageComponent, ChatListComponent, ChatListItsmComponent],
+  declarations: [
+    ChatsPageComponent,
+    ChatListComponent,
+    ChatListItsmComponent,
+    ChatAreaComponent,
+  ],
   imports: [
     CommonModule,
     CoreModule,

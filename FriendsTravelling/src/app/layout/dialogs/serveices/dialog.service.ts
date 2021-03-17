@@ -45,6 +45,7 @@ export class DialogService {
     return this.dialog.open(ChatParticipantsDialogComponent, {
       data: data,
       width: '390px',
+      height: '280px',
     });
   }
 }

@@ -13,7 +13,7 @@ export class ChatService {
 
   public getUserChats(userId: number): Observable<IChatModel[]> {
     return this._http.get<IChatModel[]>(
-      `${AppSettings.apiHost}/chat/${userId}`
+      `${AppSettings.apiHost}/chat/userChats/${userId}`
     );
   }
 
@@ -21,5 +21,9 @@ export class ChatService {
     return this._http.get<IAppUserModel[]>(
       `${AppSettings.apiHost}/userChat/${chatId}`
     );
+  }
+
+  public getChatById(id: number): Observable<IChatModel> {
+    return this._http.get<IChatModel>(`${AppSettings.apiHost}/chat/${id}`);
   }
 }

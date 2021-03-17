@@ -1,0 +1,61 @@
+<div class="main container-fluid">
+  <div class="row d-flex justify-content-center align-self-center">
+    <div class="col-lg-7">
+      <mat-card class="card">
+        <h3 class="text-center header">{{ currentChat?.name }}</h3>
+        <mat-card-content class="card-content">
+          <div
+            id="messages-box"
+            *ngFor="let message of messages"
+            class="message-field"
+          >
+            <div
+              [class.myMessage]="isMyMessage(message.sender.id)"
+              class="msg-wrapper d-flex align-items-center"
+            >
+              <img
+                *ngIf="!isMyMessage(message.sender.id)"
+                width="40"
+                height="40"
+                class="rounded-circle"
+                [src]="createImgPath(message.sender.profileImage.imagePath)"
+              />
+              <div class="message">
+                <div>
+                  <small>{{ message.sender.userName }}</small>
+                </div>
+                <div class="content">{{ message.content }}</div>
+                <div class="time">
+                  {{ message.sendingDate | date: "medium" }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="input_msg_write">
+            <input
+              type="text"
+              [value]="txtMessage"
+              (input)="txtMessage = $event.target.value"
+              (keydown.enter)="sendMessage()"
+              placeholder="Type a message"
+            />
+            <button
+              class="send-btn"
+              mat-raised-button
+              type="button"
+              (click)="sendMessage()"
+              [disabled]="isMessageSending"
+            >
+              <i class="fas fa-paper-plane"></i>
+              <span class="spinner" *ngIf="isMessageSending">
+                <app-spinner [diameter]="20"></app-spinner>
+              </span>
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

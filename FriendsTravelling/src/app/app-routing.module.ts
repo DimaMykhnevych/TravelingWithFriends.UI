@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core/auth';
+import { ChatAreaComponent } from './features/chat/components/chat-area/chat-area.component';
 import { ChatsPageComponent } from './features/chat/components/chats-page/chats-page.component';
 import {
   UserInboxRequestsComponent,
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'requests', component: UserRequestsComponent },
       { path: 'inbox-requests', component: UserInboxRequestsComponent },
       { path: 'chats', component: ChatsPageComponent },
+      { path: 'chat', component: ChatAreaComponent },
     ],
   },
 ];

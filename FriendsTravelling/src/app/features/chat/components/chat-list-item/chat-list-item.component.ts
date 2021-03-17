@@ -12,6 +12,8 @@ export class ChatListItsmComponent implements OnInit {
   onChatCreatorClick: EventEmitter<number> = new EventEmitter<number>();
   @Output()
   onParticipantsListClick: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  onStartMessaging: EventEmitter<number> = new EventEmitter<number>();
 
   ngOnInit(): void {}
 
@@ -21,5 +23,9 @@ export class ChatListItsmComponent implements OnInit {
 
   public onParticipantsListBtnClick(): void {
     this.onParticipantsListClick.emit(this.chat.id);
+  }
+
+  public onChatBtnClick(): void {
+    this.onStartMessaging.emit(this.chat.id);
   }
 }

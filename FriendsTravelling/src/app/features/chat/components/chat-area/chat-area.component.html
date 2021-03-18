@@ -8,7 +8,7 @@
             class="text-center empty-chat"
             *ngIf="messages.length === 0 && !isLoading"
           >
-            Chat is empty. Start messaging now
+            {{ "chats.empty_chat" | translate }}
           </div>
           <div *ngIf="isLoading">
             <app-spinner></app-spinner>

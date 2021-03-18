@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChatService as ChatHub } from 'src/app/core/chat/chat.service';
 import { IMessageModel } from 'src/app/core/models/message';
 import { CurrentUserService } from 'src/app/core/permission/services';
@@ -31,14 +31,15 @@ export class ChatAreaComponent implements OnInit {
     private _messageService: MessageService,
     private _currentUserService: CurrentUserService,
     private _chatHub: ChatHub,
-    private _chatService: ChatService
+    private _chatService: ChatService,
+    private _router: Router
   ) {}
 
   public ngOnInit(): void {
-    this.subscribeToEvents();
     this.getRouteValues();
-    this.getMessages();
     this.getChatInfo();
+    this.subscribeToEvents();
+    this.getMessages();
     this.getCurrentUser();
   }
 
@@ -89,9 +90,14 @@ export class ChatAreaComponent implements OnInit {
   }
 
   private getChatInfo(): void {
-    this._chatService.getChatById(this.chatId).subscribe((resp: IChatModel) => {
-      this.currentChat = resp;
-    });
+    this._chatService.getChatById(this.chatId).subscribe(
+      (resp: IChatModel) => {
+        this.currentChat = resp;
+      },
+      (err) => {
+        this._router.navigate(['/profile/chats']);
+      }
+    );
   }
 
   private subscribeToEvents(): void {

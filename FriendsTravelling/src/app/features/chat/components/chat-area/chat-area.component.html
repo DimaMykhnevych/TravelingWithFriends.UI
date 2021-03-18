@@ -1,12 +1,21 @@
 <div class="main container-fluid">
   <div class="row d-flex justify-content-center align-self-center">
     <div class="col-lg-7">
-      <mat-card class="card">
+      <mat-card class="card d-flex flex-column justify-content-around">
         <h3 class="text-center header">{{ currentChat?.name }}</h3>
-        <mat-card-content class="card-content">
+        <mat-card-content #scrollMe class="card-content">
+          <div
+            class="text-center empty-chat"
+            *ngIf="messages.length === 0 && !isLoading"
+          >
+            Chat is empty. Start messaging now
+          </div>
+          <div *ngIf="isLoading">
+            <app-spinner></app-spinner>
+          </div>
           <div
             id="messages-box"
-            *ngFor="let message of messages"
+            *ngFor="let message of messages; index as i"
             class="message-field"
           >
             <div
@@ -14,26 +23,35 @@
               class="msg-wrapper d-flex align-items-center"
             >
               <img
-                *ngIf="!isMyMessage(message.sender.id)"
+                *ngIf="isAvatarNeedToBeDisplayed(message.sender.id, i)"
                 width="40"
                 height="40"
                 class="rounded-circle"
-                [src]="createImgPath(message.sender.profileImage.imagePath)"
+                [src]="createImgPath(message.sender.profileImage?.imagePath)"
               />
-              <div class="message">
+              <div
+                class="message"
+                [class.padWithoutImage]="
+                  !isAvatarNeedToBeDisplayed(message.sender.id, i) &&
+                  !isMyMessage(message.sender.id)
+                "
+              >
                 <div>
-                  <small>{{ message.sender.userName }}</small>
+                  <small class="details">{{ message.sender.userName }}</small>
                 </div>
-                <div class="content">{{ message.content }}</div>
-                <div class="time">
+                <div class="content">
+                  {{ message.content }}
+                </div>
+                <div class="time details">
                   {{ message.sendingDate | date: "medium" }}
                 </div>
+                {{ i === messages.length - 1 ? scrollToBottom() : null }}
               </div>
             </div>
           </div>
         </mat-card-content>
         <mat-card-actions>
-          <div class="input_msg_write">
+          <div class="input_msg_write d-flex justify-content-center">
             <input
               type="text"
               [value]="txtMessage"

@@ -52,7 +52,7 @@
   "chats": {
     "chats": "Chats",
     "chat": "Chat",
-    "chats_empty": "You don't have any chat. You need to create or join the journey to start messaging.",
+    "chats_empty": "You don't have any chat. Create or join the journey to start messaging.",
     "start_messaging": "Start messaging",
     "view_participants": "View chat participants",
     "empty_chat": "Chat is empty. Start messaging now"
